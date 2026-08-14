@@ -811,6 +811,11 @@ textarea {
   gap: 1.5rem;
 }
 
+.single-item-grid {
+  grid-template-columns: minmax(0, 480px);
+  justify-content: center;
+}
+
 .gadget-card {
   position: relative;
   background: rgba(255,255,255,0.15);
