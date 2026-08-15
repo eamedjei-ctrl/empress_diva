@@ -10,8 +10,11 @@ document.addEventListener('DOMContentLoaded', () => {
   const toggleButton = document.querySelector('.mobile-toggle');
 
   if (toggleButton && navMenu) {
+    toggleButton.setAttribute('aria-expanded', 'false');
     toggleButton.addEventListener('click', () => {
-      navMenu.classList.toggle('open');
+      const open = navMenu.classList.toggle('open');
+      toggleButton.setAttribute('aria-expanded', open ? 'true' : 'false');
+      document.documentElement.classList.toggle('no-scroll', open);
     });
   }
 
