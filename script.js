@@ -195,14 +195,14 @@ document.addEventListener('DOMContentLoaded', () => {
     document.querySelectorAll('.cart-count').forEach(el => { el.textContent = count; });
   }
 
-  // ensure a left header cart icon exists (useful on pages without a cart link)
-  function ensureHeaderCartIcon() {
-    const navbar = document.querySelector('.navbar');
-    if (!navbar) return;
-    if (navbar.querySelector('.cart-link-left')) return; // already present
+  // ensure a right-side cart icon exists inside .nav-actions (inject if missing)
+  function ensureRightCartInNav() {
+    const navActions = document.querySelector('.nav-actions');
+    if (!navActions) return;
+    if (navActions.querySelector('.cart-link')) return; // already present
     const a = document.createElement('a');
     a.href = 'cart.html';
-    a.className = 'icon-btn cart-link-left';
+    a.className = 'icon-btn cart-link';
     a.setAttribute('aria-label', 'Open cart');
     a.innerHTML = `
       <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
@@ -210,9 +210,7 @@ document.addEventListener('DOMContentLoaded', () => {
       </svg>
       <span class="cart-count" aria-hidden="true">0</span>
     `;
-    const brand = navbar.querySelector('.brand');
-    if (brand) navbar.insertBefore(a, brand);
-    else navbar.prepend(a);
+    navActions.appendChild(a);
   }
 
   function addToCartItem(item) {
@@ -241,7 +239,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 
-  ensureHeaderCartIcon();
+  ensureRightCartInNav();
   updateCartCountUI();
 
   // render cart page if present
