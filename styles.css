@@ -784,15 +784,18 @@ textarea {
 }
 
 .search-box {
-  flex: 1 1 440px;
-  min-width: 240px;
+  /* limit initial width so the search box doesn't dominate the filter row */
+  flex: 0 1 340px;
+  max-width: 520px;
+  width: 100%;
+  min-width: 180px;
   display: flex;
   align-items: center;
   gap: 0.7rem;
   background: rgba(255,255,255,0.35);
   border: 1px solid rgba(26,28,28,0.08);
   border-radius: 0.8rem;
-  padding: 0.8rem 1rem;
+  padding: 0.6rem 0.9rem;
   color: #5d4a52;
 }
 
@@ -815,6 +818,17 @@ textarea {
   align-items: center;
   gap: 0.8rem;
   flex-wrap: wrap;
+}
+
+/* Make search box more compact on medium screens and full-width on small screens */
+@media (max-width: 900px) {
+  .search-box { flex: 1 1 100%; max-width: none; min-width: 0; }
+  .filter-selects { width: 100%; gap: 0.5rem; }
+}
+
+@media (max-width: 480px) {
+  .search-box { padding: 0.55rem 0.7rem; }
+  .search-box input { font-size: 0.95rem; }
 }
 
 .select-box {
