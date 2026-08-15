@@ -764,6 +764,31 @@ textarea {
   .cart-item-actions { width:100%; justify-content:space-between; }
 }
 
+/* Header left cart icon */
+.cart-link-left {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  margin-right: 0.6rem;
+  color: var(--text);
+  text-decoration: none;
+}
+.cart-link-left svg { width: 28px; height: 28px; display: block; }
+.cart-link-left .cart-count {
+  background: var(--pink);
+  color: var(--white);
+  font-weight: 700;
+  padding: 0.12rem 0.45rem;
+  border-radius: 999px;
+  font-size: 0.8rem;
+  line-height: 1;
+}
+
+@media (max-width: 420px) {
+  .cart-link-left { margin-right: 0.35rem; }
+  .cart-link-left svg { width: 24px; height: 24px; }
+}
+
 .crumb-current {
   color: var(--pink);
 }
