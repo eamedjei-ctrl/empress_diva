@@ -1043,6 +1043,18 @@ textarea {
   margin-bottom: 0.75rem;
 }
 
+/* Fix: ensure product action buttons match height and spacing when side-by-side */
+.product-grid .product-content .details-btn,
+.product-grid .product-content .whatsapp-btn.subtle {
+  width: auto; /* don't force full width inside inline flex */
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.68rem 1rem;
+  min-height: 44px;
+  margin-bottom: 0; /* remove extra spacing when inline */
+}
+
 .whatsapp-btn.subtle {
   border: 1px solid rgba(26,28,28,0.15);
   background: rgba(255,255,255,0.4);
