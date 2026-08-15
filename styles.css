@@ -513,7 +513,8 @@ section.inner-hero {
   color: var(--white);
   border: 0;
   border-radius: 999px;
-  padding: 0.9rem 1rem;
+  padding: 0.56rem 1rem;
+  min-height: 36px;
   font-weight: 700;
   letter-spacing: 0.08em;
   text-transform: uppercase;
@@ -1043,23 +1044,49 @@ textarea {
   margin-bottom: 0.75rem;
 }
 
-/* Fix: ensure product action buttons match height and spacing when side-by-side */
+/* Ensure product action buttons match gadgets page (stacked full-width) */
 .product-grid .product-content .details-btn,
 .product-grid .product-content .whatsapp-btn.subtle {
-  width: auto; /* don't force full width inside inline flex */
-  display: inline-flex;
+  width: 100%;
+  display: block;
+  padding: 0.56rem 1rem; /* reduced vertical padding to lower button height */
+  min-height: 36px;
+  margin-bottom: 0.6rem;
+  box-sizing: border-box;
+}
+
+/* Slim buttons when displayed side-by-side inside product cards */
+.product-grid .product-content > div > .details-btn,
+.product-grid .product-content > div > .whatsapp-btn {
+  padding: 0.42rem 0.9rem;
+  min-height: 32px;
+  font-size: 0.92rem;
+}
+
+/* If product actions are in a flex row, keep buttons visually balanced */
+.product-grid .product-content > div {
   align-items: center;
-  justify-content: center;
-  padding: 0.68rem 1rem;
+}
+
+/* Product actions: stack buttons to match gadgets page */
+.product-actions {
+  display: grid;
+  gap: 0.75rem;
+}
+
+.product-actions .details-btn,
+.product-actions .whatsapp-btn.subtle {
+  width: 100%;
+  padding: 0.8rem 1rem;
   min-height: 44px;
-  margin-bottom: 0; /* remove extra spacing when inline */
 }
 
 .whatsapp-btn.subtle {
   border: 1px solid rgba(26,28,28,0.15);
   background: rgba(255,255,255,0.4);
   color: #1d1d1d;
-  padding: 0.72rem 1rem;
+  padding: 0.56rem 1rem;
+  min-height: 36px;
 }
 
 .details-btn:hover,
