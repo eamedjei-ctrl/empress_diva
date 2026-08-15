@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Cart | Empress Divas</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <header class="site-header">
+      <div class="container navbar">
+        <a href="index.html" class="brand">Empress Divas Collections</a>
+        <button class="icon-btn mobile-toggle" aria-label="Open menu">
+          <span class="material-symbols-outlined">menu</span>
+        </button>
+        <ul class="nav-menu">
+          <li><a href="index.html">Home</a></li>
+          <li><a href="gadgets.html">Gadgets</a></li>
+          <li><a href="products.html">Apparels</a></li>
+          <li><a href="bag_mainpage.html">Bags</a></li>
+          <li><a href="footwearmp.html">Footwears</a></li>
+          <li><a href="wigsmain.html">Wigs</a></li>
+          <li><a href="contact.html">Contact Us</a></li>
+        </ul>
+        <div class="nav-actions">
+          <a href="cart.html" class="icon-btn cart-link" aria-label="Open cart">
+            <span class="material-symbols-outlined">shopping_bag</span>
+            <span class="cart-count" aria-hidden="true">0</span>
+          </a>
+        </div>
+      </div>
+    </header>
+
+    <main>
+      <section style="padding: 2rem 0;">
+        <div class="container">
+          <div class="page-header">
+            <h1>Your Cart</h1>
+            <p class="lead">Review items before checkout.</p>
+          </div>
+
+          <div id="cart-root">
+            <!-- Cart UI rendered by script.js -->
+            <p>Loading cart...</p>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <div class="container footer-grid">
+        <div>
+          <div class="footer-brand">Empress Divas Collections</div>
+          <p style="margin-top: 1rem;">© 2024 Empress Divas Collections. All rights reserved.</p>
+        </div>
+      </div>
+    </footer>
+
+    <script src="script.js"></script>
+  </body>
+</html>

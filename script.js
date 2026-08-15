@@ -171,4 +171,121 @@ document.addEventListener('DOMContentLoaded', () => {
     window.open(waUrl, '_blank');
     closeOrderModal();
   });
+
+  // --- Simple client-side cart (localStorage) ---
+  const CART_KEY = 'empress_cart_v1';
+
+  function loadCart() {
+    try {
+      const raw = localStorage.getItem(CART_KEY);
+      return raw ? JSON.parse(raw) : [];
+    } catch (err) {
+      return [];
+    }
+  }
+
+  function saveCart(cart) {
+    localStorage.setItem(CART_KEY, JSON.stringify(cart));
+    updateCartCountUI();
+  }
+
+  function updateCartCountUI() {
+    const cart = loadCart();
+    const count = cart.reduce((s, it) => s + (it.quantity||0), 0);
+    document.querySelectorAll('.cart-count').forEach(el => { el.textContent = count; });
+  }
+
+  function addToCartItem(item) {
+    const cart = loadCart();
+    const found = cart.find(i => i.id === item.id);
+    if (found) {
+      found.quantity = (found.quantity || 1) + (item.quantity || 1);
+    } else {
+      cart.push(Object.assign({ quantity: 1 }, item));
+    }
+    saveCart(cart);
+  }
+
+  // wire up Add to cart buttons
+  document.querySelectorAll('.add-cart-btn').forEach((btn) => {
+    btn.addEventListener('click', (e) => {
+      e.preventDefault();
+      const id = btn.dataset.id || btn.getAttribute('data-id');
+      const name = btn.dataset.name || btn.getAttribute('data-name') || 'Item';
+      const price = Number(btn.dataset.price || btn.getAttribute('data-price') || 0) || 0;
+      addToCartItem({ id, name, price });
+      const original = btn.textContent;
+      btn.textContent = 'Added';
+      btn.disabled = true;
+      setTimeout(() => { btn.textContent = original; btn.disabled = false; }, 900);
+    });
+  });
+
+  updateCartCountUI();
+
+  // render cart page if present
+  if (document.getElementById('cart-root')) {
+    const root = document.getElementById('cart-root');
+    function renderCart() {
+      const cart = loadCart();
+      if (!cart.length) {
+        root.innerHTML = '<p>Your cart is empty. <a href="products.html">Continue shopping</a>.</p>';
+        updateCartCountUI();
+        return;
+      }
+      let html = '<div class="cart-list">';
+      let total = 0;
+      cart.forEach((it, idx) => {
+        const lineTotal = (it.price || 0) * (it.quantity || 1);
+        total += lineTotal;
+        html += `<div class="cart-item" data-idx="${idx}">`+
+                `<div class="cart-item-info"><strong>${escapeHtml(it.name)}</strong>`+
+                `<div class="cart-item-price">GH₵ ${Number(it.price).toFixed(2)}</div></div>`+
+                `<div class="cart-item-actions">`+
+                `<input type="number" min="1" value="${it.quantity || 1}" class="cart-qty" />`+
+                `<button class="btn btn-ghost remove-item">Remove</button>`+
+                `</div></div>`;
+      });
+      html += `</div><div class="cart-summary"><div>Total: <strong>GH₵ ${Number(total).toFixed(2)}</strong></div>`+
+              `<div style="margin-top:1rem; display:flex; gap:0.6rem;"><button id="checkout-btn" class="btn">Checkout via WhatsApp</button><button id="clear-cart" class="btn btn-ghost">Clear cart</button></div></div>`;
+      root.innerHTML = html;
+      // attach handlers
+      root.querySelectorAll('.cart-qty').forEach((input, i) => {
+        input.addEventListener('change', (e) => {
+          const val = Math.max(1, Number(e.target.value || 1));
+          const cart = loadCart();
+          cart[i].quantity = val;
+          saveCart(cart);
+          renderCart();
+        });
+      });
+      root.querySelectorAll('.remove-item').forEach((btn, i) => {
+        btn.addEventListener('click', (e) => {
+          const cart = loadCart();
+          cart.splice(i, 1);
+          saveCart(cart);
+          renderCart();
+        });
+      });
+      const checkoutBtn = document.getElementById('checkout-btn');
+      if (checkoutBtn) {
+        checkoutBtn.addEventListener('click', () => {
+          const cart = loadCart();
+          if (!cart.length) return;
+          let msg = 'New order from website%0A';
+          let total = 0;
+          cart.forEach(it => { total += (it.price||0)*(it.quantity||1); msg += `${it.name} x${it.quantity} - GH₵ ${((it.price||0)*(it.quantity||1)).toFixed(2)}%0A`; });
+          msg += `%0ATotal: GH₵ ${total.toFixed(2)}`;
+          const wa = `https://wa.me/${sellerNumber}?text=${encodeURIComponent(decodeURIComponent(msg))}`;
+          window.open(wa, '_blank');
+        });
+      }
+      const clearBtn = document.getElementById('clear-cart');
+      if (clearBtn) {
+        clearBtn.addEventListener('click', () => { localStorage.removeItem(CART_KEY); renderCart(); updateCartCountUI(); });
+      }
+    }
+    function escapeHtml(s) { return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+    renderCart();
+  }
 });

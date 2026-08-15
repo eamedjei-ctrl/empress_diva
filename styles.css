@@ -750,6 +750,20 @@ textarea {
 /* disable page scroll when mobile menu open */
 .no-scroll, html.no-scroll, body.no-scroll { overflow: hidden; height: 100%; }
 
+/* Cart styles */
+.cart-list { display: grid; gap: 0.9rem; }
+.cart-item { display:flex; align-items:center; justify-content:space-between; gap:1rem; padding: 1rem; background: rgba(255,255,255,0.85); border-radius: 0.8rem; border: 1px solid rgba(26,28,28,0.04); }
+.cart-item-info { flex:1; }
+.cart-item-price { color: var(--gray-500); font-weight:700; margin-top:0.25rem; }
+.cart-item-actions { display:flex; gap:0.6rem; align-items:center; }
+.cart-item-actions .cart-qty { width:64px; padding:0.45rem; border-radius:0.5rem; border:1px solid rgba(26,28,28,0.08); }
+.cart-summary { margin-top:1.4rem; text-align:right; font-size:1.1rem; }
+
+@media (max-width: 700px) {
+  .cart-item { flex-direction: column; align-items: flex-start; }
+  .cart-item-actions { width:100%; justify-content:space-between; }
+}
+
 .crumb-current {
   color: var(--pink);
 }

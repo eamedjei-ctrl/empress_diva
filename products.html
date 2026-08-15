@@ -45,9 +45,10 @@
           <button class="icon-btn hidden-mobile" aria-label="Search">
             <span class="material-symbols-outlined">search</span>
           </button>
-          <button class="icon-btn hidden-mobile" aria-label="Shopping bag">
+          <a href="cart.html" class="icon-btn hidden-mobile cart-link" aria-label="Open cart">
             <span class="material-symbols-outlined">shopping_bag</span>
-          </button>
+            <span class="cart-count" aria-hidden="true">0</span>
+          </a>
           <button class="icon-btn hidden-mobile" aria-label="Profile">
             <span class="material-symbols-outlined">person</span>
           </button>
@@ -99,37 +100,46 @@
             </div>
 
             <div class="product-grid">
-              <article class="product-card">
+              <article class="product-card" data-product-id="p1">
                 <div class="product-image" style="background: linear-gradient(135deg, #f3dfe9, #efebe8);">
                   <div class="product-placeholder">B</div>
                   <span class="badge">New In</span>
                 </div>
                 <div class="product-content">
                   <h3>Blush Silk Evening Gown</h3>
-                  <p class="price">₵ 1,250.00</p>
-                  <button class="whatsapp-btn">Order on WhatsApp</button>
+                    <p class="price">₵ 1,250.00</p>
+                    <div style="display:flex; gap:0.6rem; justify-content:center;">
+                      <button class="btn add-cart-btn" data-id="p1" data-name="Blush Silk Evening Gown" data-price="1250">Add to cart</button>
+                      <button class="whatsapp-btn">Order on WhatsApp</button>
+                    </div>
                 </div>
               </article>
 
-              <article class="product-card">
+              <article class="product-card" data-product-id="p2">
                 <div class="product-image" style="background: linear-gradient(135deg, #e7e3e8, #efe9df);">
                   <div class="product-placeholder">I</div>
                 </div>
                 <div class="product-content">
                   <h3>Ivory Tailored Blazer Set</h3>
                   <p class="price">₵ 1,800.00</p>
-                  <button class="whatsapp-btn">Order on WhatsApp</button>
+                  <div style="display:flex; gap:0.6rem; justify-content:center;">
+                    <button class="btn add-cart-btn" data-id="p2" data-name="Ivory Tailored Blazer Set" data-price="1800">Add to cart</button>
+                    <button class="whatsapp-btn">Order on WhatsApp</button>
+                  </div>
                 </div>
               </article>
 
-              <article class="product-card">
+              <article class="product-card" data-product-id="p3">
                 <div class="product-image" style="background: linear-gradient(135deg, #e6e5e5, #f0dfea);">
                   <div class="product-placeholder">N</div>
                 </div>
                 <div class="product-content">
                   <h3>Noir Structured Midi</h3>
                   <p class="price">₵ 850.00</p>
-                  <button class="whatsapp-btn">Order on WhatsApp</button>
+                  <div style="display:flex; gap:0.6rem; justify-content:center;">
+                    <button class="btn add-cart-btn" data-id="p3" data-name="Noir Structured Midi" data-price="850">Add to cart</button>
+                    <button class="whatsapp-btn">Order on WhatsApp</button>
+                  </div>
                 </div>
               </article>
             </div>
