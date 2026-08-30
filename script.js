@@ -1,9 +1,16 @@
 document.addEventListener('DOMContentLoaded', () => {
-  const overlay = document.querySelector('.intro-overlay');
-  if (overlay) {
-    window.setTimeout(() => {
-      overlay.classList.add('hidden');
-    }, 5000);
+  const siteIntro = document.getElementById('site-intro');
+  if (siteIntro) {
+    if (document.documentElement.classList.contains('no-intro')) {
+      siteIntro.remove();
+    } else {
+      sessionStorage.setItem('empress_intro_shown', '1');
+      siteIntro.addEventListener('animationend', (e) => {
+        if (e.target === siteIntro) siteIntro.remove();
+      });
+      // Safety net in case the animationend event doesn't fire for any reason.
+      window.setTimeout(() => siteIntro.remove(), 2600);
+    }
   }
 
   const navMenu = document.querySelector('.nav-menu');
