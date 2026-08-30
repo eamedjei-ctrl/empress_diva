@@ -18,6 +18,52 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
+  // Scroll-reveal animations
+  const revealTargets = document.querySelectorAll(
+    '.category-card, .product-card, .gadget-card, .contact-card, .form-card, .section-header'
+  );
+  revealTargets.forEach((el, i) => {
+    el.classList.add('reveal', 'reveal-stagger');
+    el.style.setProperty('--reveal-index', i % 8);
+  });
+
+  if ('IntersectionObserver' in window) {
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('in-view');
+          io.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+    revealTargets.forEach((el) => io.observe(el));
+  } else {
+    revealTargets.forEach((el) => el.classList.add('in-view'));
+  }
+
+  // Apparel category filter
+  const filterGroup = document.querySelector('[data-filter-group]');
+  const productGrid = document.querySelector('.product-grid');
+  if (filterGroup && productGrid) {
+    const cards = productGrid.querySelectorAll('.product-card');
+    const countEl = document.querySelector('[data-item-count]');
+    filterGroup.addEventListener('click', (e) => {
+      const link = e.target.closest('a[data-filter]');
+      if (!link) return;
+      e.preventDefault();
+      filterGroup.querySelectorAll('a').forEach((a) => a.classList.remove('active'));
+      link.classList.add('active');
+      const filter = link.dataset.filter;
+      let visible = 0;
+      cards.forEach((card) => {
+        const show = filter === 'all' || card.dataset.category === filter;
+        card.hidden = !show;
+        if (show) visible += 1;
+      });
+      if (countEl) countEl.textContent = `Showing ${visible} item${visible === 1 ? '' : 's'}`;
+    });
+  }
+
   const sizePills = document.querySelectorAll('.size-pill');
   sizePills.forEach((pill) => {
     pill.addEventListener('click', () => {
@@ -184,15 +230,22 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   }
 
-  function saveCart(cart) {
+  function saveCart(cart, bump) {
     localStorage.setItem(CART_KEY, JSON.stringify(cart));
-    updateCartCountUI();
+    updateCartCountUI(bump);
   }
 
-  function updateCartCountUI() {
+  function updateCartCountUI(bump) {
     const cart = loadCart();
     const count = cart.reduce((s, it) => s + (it.quantity||0), 0);
-    document.querySelectorAll('.cart-count').forEach(el => { el.textContent = count; });
+    document.querySelectorAll('.cart-count').forEach(el => {
+      el.textContent = count;
+      if (bump) {
+        el.classList.remove('bump');
+        void el.offsetWidth;
+        el.classList.add('bump');
+      }
+    });
   }
 
   // ensure a right-side cart icon exists inside .nav-actions (inject if missing)
@@ -221,7 +274,7 @@ document.addEventListener('DOMContentLoaded', () => {
     } else {
       cart.push(Object.assign({ quantity: 1 }, item));
     }
-    saveCart(cart);
+    saveCart(cart, true);
   }
 
   // wire up Add to cart buttons

@@ -35,6 +35,7 @@
           <li><a href="index.html">Home</a></li>
           <li><a href="gadgets.html">Gadgets</a></li>
           <li><a href="products.html" class="active">Apparels</a></li>
+          <li><a href="dresses.html">Dresses</a></li>
           <li><a href="bag_mainpage.html">Bags</a></li>
           <li><a href="footwearmp.html">Footwears</a></li>
           <li><a href="wigsmain.html">Wigs</a></li>
@@ -64,12 +65,12 @@
         <div class="container catalog-layout">
           <aside class="filter-panel">
             <h3>Filters</h3>
-            <ul class="filter-list">
-              <li><a href="#" class="active">All Apparels</a></li>
-              <li><a href="#">Dresses</a></li>
-              <li><a href="#">Tops &amp; Blouses</a></li>
-              <li><a href="#">Skirts</a></li>
-              <li><a href="#">Outerwear</a></li>
+            <ul class="filter-list" data-filter-group>
+              <li><a href="#" class="active" data-filter="all">All Apparels</a></li>
+              <li><a href="dresses.html">Dresses</a></li>
+              <li><a href="#" data-filter="tops">Tops &amp; Blouses</a></li>
+              <li><a href="#" data-filter="skirts">Skirts</a></li>
+              <li><a href="#" data-filter="outerwear">Outerwear</a></li>
             </ul>
 
             <h4>Size</h4>
@@ -83,7 +84,7 @@
 
           <div>
             <div class="toolbar">
-              <p>Showing 24 items</p>
+              <p data-item-count>Showing 24 items</p>
               <div class="sort-wrap">
                 <button class="btn btn-ghost" style="padding: 0.8rem 1.1rem; font-size: 0.67rem;">Filters</button>
                 <select aria-label="Sort items">
@@ -96,7 +97,7 @@
             </div>
 
             <div class="product-grid">
-              <article class="product-card" data-product-id="p1">
+              <article class="product-card" data-product-id="p1" data-category="dresses">
                 <div class="product-image" style="background: linear-gradient(135deg, #f3dfe9, #efebe8);">
                   <div class="product-placeholder">B</div>
                   <span class="badge">New In</span>
@@ -111,7 +112,7 @@
                 </div>
               </article>
 
-              <article class="product-card" data-product-id="p2">
+              <article class="product-card" data-product-id="p2" data-category="outerwear">
                 <div class="product-image" style="background: linear-gradient(135deg, #e7e3e8, #efe9df);">
                   <div class="product-placeholder">I</div>
                 </div>
@@ -125,7 +126,7 @@
                 </div>
               </article>
 
-              <article class="product-card" data-product-id="p3">
+              <article class="product-card" data-product-id="p3" data-category="dresses">
                 <div class="product-image" style="background: linear-gradient(135deg, #e6e5e5, #f0dfea);">
                   <div class="product-placeholder">N</div>
                 </div>
@@ -138,6 +139,7 @@
                   </div>
                 </div>
               </article>
+
             </div>
 
             <div style="text-align: center; margin-top: 3rem;">

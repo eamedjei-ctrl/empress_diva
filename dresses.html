@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Dresses | Empress Divas</title>
+    <meta
+      name="description"
+      content="Elegant tiered ruffle dresses and evening pieces curated for the modern woman."
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Playfair+Display:wght@600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght@400;GRAD@0;opsz@24"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <header class="site-header gadgets-header">
+      <div class="container navbar">
+        <a href="index.html" class="brand">Empress Divas Collections</a>
+
+        <button class="icon-btn mobile-toggle" aria-label="Open menu">
+          <span class="material-symbols-outlined">menu</span>
+        </button>
+
+        <nav class="nav-wrap" aria-label="Main navigation">
+          <ul class="nav-menu">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="gadgets.html">Gadgets</a></li>
+            <li><a href="products.html">Apparels</a></li>
+            <li><a href="dresses.html" class="active">Dresses</a></li>
+            <li><a href="bag_mainpage.html">Bags</a></li>
+            <li><a href="footwearmp.html">Footwears</a></li>
+            <li><a href="wigsmain.html">Wigs</a></li>
+            <li><a href="contact.html">Contact Us</a></li>
+          </ul>
+        </nav>
+
+        <div class="nav-actions">
+          <a href="cart.html" class="icon-btn cart-link" aria-label="Open cart">
+            <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+              <path d="M7 4H5L3 8v2h2l3.6 7.59L7.25 20.03A1 1 0 0 0 8 21h10v-2H9.58a.25.25 0 0 1-.22-.13L10.1 16h6.45a1 1 0 0 0 .92-.62l1.58-4.47A1 1 0 0 0 19.98 8H6.21" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+            <span class="cart-count" aria-hidden="true">0</span>
+          </a>
+        </div>
+      </div>
+    </header>
+
+    <main class="gadgets-page">
+      <section class="gadgets-hero">
+        <div class="container gadgets-page-header">
+          <div class="breadcrumb">Home <span>&nbsp;&gt;&nbsp;</span> <span class="crumb-current">Dresses</span></div>
+          <h1>Dresses</h1>
+          <p>Flowing, tiered ruffle dresses crafted for evenings that call for a little extra grace.</p>
+        </div>
+      </section>
+
+      <section class="gadgets-filter-section">
+        <div class="container gadgets-filters">
+          <div class="search-box">
+            <span class="material-symbols-outlined">search</span>
+            <input type="text" placeholder="Search dresses..." aria-label="Search dresses" />
+          </div>
+
+          <div class="filter-selects">
+            <label class="select-box">
+              <span>Color</span>
+              <select aria-label="Filter by color">
+                <option>All</option>
+                <option>Amber</option>
+                <option>Teal</option>
+                <option>Olive</option>
+                <option>Noir</option>
+                <option>Forest</option>
+                <option>Camel</option>
+              </select>
+            </label>
+
+            <label class="select-box">
+              <span>Size</span>
+              <select aria-label="Filter by size">
+                <option>All</option>
+                <option>S</option>
+                <option>M</option>
+                <option>L</option>
+                <option>XL</option>
+              </select>
+            </label>
+          </div>
+        </div>
+      </section>
+
+      <section class="gadgets-list">
+        <div class="container gadget-grid">
+          <article class="gadget-card" data-product-id="d1">
+            <span class="tag tag-new">NEW IN</span>
+            <div class="gadget-visual">
+              <img src="Images/dresses/amber-tiered-ruffle-dress.jpeg" alt="Amber tiered ruffle pleated dress" loading="lazy" />
+            </div>
+            <div class="gadget-info">
+              <h3>Amber Tiered Ruffle Dress</h3>
+              <p class="gadget-desc">A pleated ribbed-knit gown with cascading ruffle tiers and a tie waist, finished in a warm amber tone.</p>
+              <div class="price-row">
+                <div class="price-block">
+                  <strong>GH₵ 620</strong>
+                  <span class="stock in-stock">In Stock</span>
+                </div>
+              </div>
+              <button class="details-btn add-cart-btn" data-id="d1" data-name="Amber Tiered Ruffle Dress" data-price="620">Add to cart</button>
+              <button class="whatsapp-btn subtle">Order on WhatsApp</button>
+            </div>
+          </article>
+
+          <article class="gadget-card" data-product-id="d2">
+            <div class="gadget-visual">
+              <img src="Images/dresses/teal-tiered-ruffle-dress.jpeg" alt="Teal tiered ruffle pleated dress" loading="lazy" />
+            </div>
+            <div class="gadget-info">
+              <h3>Teal Tiered Ruffle Dress</h3>
+              <p class="gadget-desc">A pleated ribbed-knit gown with cascading ruffle tiers and a tie waist, finished in a rich teal tone.</p>
+              <div class="price-row">
+                <div class="price-block">
+                  <strong>GH₵ 620</strong>
+                  <span class="stock in-stock">In Stock</span>
+                </div>
+              </div>
+              <button class="details-btn add-cart-btn" data-id="d2" data-name="Teal Tiered Ruffle Dress" data-price="620">Add to cart</button>
+              <button class="whatsapp-btn subtle">Order on WhatsApp</button>
+            </div>
+          </article>
+
+          <article class="gadget-card" data-product-id="d3">
+            <div class="gadget-visual">
+              <img src="Images/dresses/olive-tiered-ruffle-dress.jpeg" alt="Olive tiered ruffle pleated dress" loading="lazy" />
+            </div>
+            <div class="gadget-info">
+              <h3>Olive Tiered Ruffle Dress</h3>
+              <p class="gadget-desc">A pleated ribbed-knit gown with cascading ruffle tiers and a tie waist, finished in a soft olive tone.</p>
+              <div class="price-row">
+                <div class="price-block">
+                  <strong>GH₵ 620</strong>
+                  <span class="stock in-stock">In Stock</span>
+                </div>
+              </div>
+              <button class="details-btn add-cart-btn" data-id="d3" data-name="Olive Tiered Ruffle Dress" data-price="620">Add to cart</button>
+              <button class="whatsapp-btn subtle">Order on WhatsApp</button>
+            </div>
+          </article>
+
+          <article class="gadget-card" data-product-id="d4">
+            <div class="gadget-visual">
+              <img src="Images/dresses/noir-tiered-ruffle-dress.jpeg" alt="Noir tiered ruffle pleated dress" loading="lazy" />
+            </div>
+            <div class="gadget-info">
+              <h3>Noir Tiered Ruffle Dress</h3>
+              <p class="gadget-desc">A pleated ribbed-knit gown with cascading ruffle tiers and a tie waist, finished in classic noir.</p>
+              <div class="price-row">
+                <div class="price-block">
+                  <strong>GH₵ 620</strong>
+                  <span class="stock in-stock">In Stock</span>
+                </div>
+              </div>
+              <button class="details-btn add-cart-btn" data-id="d4" data-name="Noir Tiered Ruffle Dress" data-price="620">Add to cart</button>
+              <button class="whatsapp-btn subtle">Order on WhatsApp</button>
+            </div>
+          </article>
+
+          <article class="gadget-card" data-product-id="d5">
+            <div class="gadget-visual">
+              <img src="Images/dresses/forest-tiered-ruffle-dress.jpeg" alt="Forest green tiered ruffle pleated dress" loading="lazy" />
+            </div>
+            <div class="gadget-info">
+              <h3>Forest Tiered Ruffle Dress</h3>
+              <p class="gadget-desc">A pleated ribbed-knit gown with cascading ruffle tiers and a tie waist, finished in deep forest green.</p>
+              <div class="price-row">
+                <div class="price-block">
+                  <strong>GH₵ 620</strong>
+                  <span class="stock in-stock">In Stock</span>
+                </div>
+              </div>
+              <button class="details-btn add-cart-btn" data-id="d5" data-name="Forest Tiered Ruffle Dress" data-price="620">Add to cart</button>
+              <button class="whatsapp-btn subtle">Order on WhatsApp</button>
+            </div>
+          </article>
+
+          <article class="gadget-card" data-product-id="d6">
+            <div class="gadget-visual">
+              <img src="Images/dresses/camel-tiered-ruffle-dress.jpeg" alt="Camel tiered ruffle pleated dress" loading="lazy" />
+            </div>
+            <div class="gadget-info">
+              <h3>Camel Tiered Ruffle Dress</h3>
+              <p class="gadget-desc">A pleated ribbed-knit gown with cascading ruffle tiers and a tie waist, finished in warm camel.</p>
+              <div class="price-row">
+                <div class="price-block">
+                  <strong>GH₵ 620</strong>
+                  <span class="stock in-stock">In Stock</span>
+                </div>
+              </div>
+              <button class="details-btn add-cart-btn" data-id="d6" data-name="Camel Tiered Ruffle Dress" data-price="620">Add to cart</button>
+              <button class="whatsapp-btn subtle">Order on WhatsApp</button>
+            </div>
+          </article>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer gadgets-footer">
+      <div class="container footer-grid">
+        <div class="footer-brand-block">
+          <div class="footer-brand">Empress Divas<br />Collections</div>
+          <p>Elevating everyday elegance for the modern woman.</p>
+        </div>
+
+        <div>
+          <h4>Company</h4>
+          <ul class="footer-list">
+            <li><a href="index.html">About Us</a></li>
+            <li><a href="products.html">Quick Links</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <h4>Explore</h4>
+          <ul class="footer-list">
+            <li><a href="products.html">Categories</a></li>
+            <li><a href="dresses.html">Dresses</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <h4>Connect</h4>
+          <ul class="footer-list">
+            <li><a href="tel:0245816733">Contact: 0245816733</a></li>
+            <li><a href="#">TikTok</a></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="container copyright">© 2024 Empress Divas Collections. All rights reserved.</div>
+    </footer>
+
+    <script src="script.js"></script>
+  </body>
+</html>
