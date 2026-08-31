@@ -538,6 +538,40 @@ section.inner-hero {
   text-transform: uppercase;
 }
 
+/* Quick-add cart icon, overlaid on the bottom-right of the product image */
+.cart-icon-btn {
+  position: absolute;
+  right: 0.75rem;
+  bottom: 0.75rem;
+  z-index: 3;
+  width: 42px;
+  height: 42px;
+  border: 0;
+  border-radius: 50%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, var(--pink), var(--pink-deep));
+  color: var(--white);
+  cursor: pointer;
+  box-shadow: 0 10px 22px rgba(216, 79, 146, 0.35);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.cart-icon-btn svg {
+  width: 19px;
+  height: 19px;
+}
+
+.cart-icon-btn:hover {
+  transform: translateY(-2px) scale(1.06);
+  box-shadow: 0 14px 28px rgba(216, 79, 146, 0.45);
+}
+
+.cart-icon-btn:active {
+  transform: scale(0.92);
+}
+
 .product-content {
   padding: 1.25rem 1rem 1.1rem;
   text-align: center;
@@ -957,6 +991,7 @@ textarea {
 }
 
 .gadget-visual {
+  position: relative;
   height: 240px;
   margin: 1.3rem -0.8rem 0.9rem;
   overflow: hidden;

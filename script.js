@@ -273,30 +273,71 @@ document.addEventListener('DOMContentLoaded', () => {
     navActions.appendChild(a);
   }
 
-  function addToCartItem(item) {
-    const cart = loadCart();
-    const found = cart.find(i => i.id === item.id);
-    if (found) {
-      found.quantity = (found.quantity || 1) + (item.quantity || 1);
-    } else {
-      cart.push(Object.assign({ quantity: 1 }, item));
-    }
-    saveCart(cart, true);
+  // Quick-order modal: cart icon collects Name, Phone, Qty, Pickup location,
+  // then drafts the WhatsApp message directly (no local cart involved).
+  const cartOrderModalHtml = `
+  <div id="cart-order-backdrop" class="modal-backdrop" style="display:none">
+    <div class="order-modal">
+      <button class="modal-close" aria-label="Close">×</button>
+      <h3 id="cart-order-product">Order</h3>
+      <form id="cart-order-form">
+        <label>Name<input name="name" required placeholder="Your full name" /></label>
+        <label>Phone Number<input name="phone" type="tel" required placeholder="Your phone number" /></label>
+        <label>Quantity<input name="quantity" type="number" min="1" value="1" required /></label>
+        <label>Pickup Location<input name="pickup" required placeholder="e.g. Accra Mall, East Legon" /></label>
+        <div class="modal-actions">
+          <button type="submit" class="btn">Send via WhatsApp</button>
+          <button type="button" class="btn btn-ghost modal-cancel">Cancel</button>
+        </div>
+      </form>
+    </div>
+  </div>`;
+  document.body.insertAdjacentHTML('beforeend', cartOrderModalHtml);
+
+  const cartBackdrop = document.getElementById('cart-order-backdrop');
+  const cartOrderForm = document.getElementById('cart-order-form');
+  const cartOrderProduct = document.getElementById('cart-order-product');
+  let cartOrderProductName = '';
+
+  function openCartOrderModal(productName) {
+    cartOrderProductName = productName;
+    cartOrderProduct.textContent = `Order: ${productName}`;
+    cartBackdrop.style.display = 'flex';
+    const nameInput = cartOrderForm.querySelector('[name="name"]');
+    if (nameInput) nameInput.focus();
   }
 
-  // wire up Add to cart buttons
-  document.querySelectorAll('.add-cart-btn').forEach((btn) => {
+  function closeCartOrderModal() {
+    cartBackdrop.style.display = 'none';
+    cartOrderForm.reset();
+  }
+
+  document.querySelectorAll('.cart-icon-btn').forEach((btn) => {
     btn.addEventListener('click', (e) => {
       e.preventDefault();
-      const id = btn.dataset.id || btn.getAttribute('data-id');
       const name = btn.dataset.name || btn.getAttribute('data-name') || 'Item';
-      const price = Number(btn.dataset.price || btn.getAttribute('data-price') || 0) || 0;
-      addToCartItem({ id, name, price });
-      const original = btn.textContent;
-      btn.textContent = 'Added';
-      btn.disabled = true;
-      setTimeout(() => { btn.textContent = original; btn.disabled = false; }, 900);
+      openCartOrderModal(name);
     });
+  });
+
+  cartBackdrop.querySelectorAll('.modal-close, .modal-cancel').forEach((el) => {
+    el.addEventListener('click', (e) => { e.preventDefault(); closeCartOrderModal(); });
+  });
+
+  cartBackdrop.addEventListener('click', (e) => { if (e.target === cartBackdrop) closeCartOrderModal(); });
+
+  cartOrderForm.addEventListener('submit', (e) => {
+    e.preventDefault();
+    const f = new FormData(cartOrderForm);
+    const name = f.get('name') || '';
+    const phone = f.get('phone') || '';
+    const qty = Number(f.get('quantity')) || 1;
+    const pickup = f.get('pickup') || '';
+
+    const message = `New order from ${name}\nProduct: ${cartOrderProductName}\nQuantity: ${qty}\nPickup location: ${pickup}\nPhone: ${phone}`;
+    const waUrl = `https://wa.me/${sellerNumber}?text=${encodeURIComponent(message)}`;
+    window.open(waUrl, '_blank');
+    closeCartOrderModal();
   });
 
   ensureRightCartInNav();
