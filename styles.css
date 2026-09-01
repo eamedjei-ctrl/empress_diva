@@ -1484,7 +1484,7 @@ textarea {
   align-items: center;
   justify-content: center;
   background: linear-gradient(135deg, var(--pink-deep), var(--pink), var(--pink-bright));
-  animation: introWipe 0.7s cubic-bezier(0.6, 0, 0.2, 1) 1.5s both;
+  animation: introWipe 0.6s cubic-bezier(0.6, 0, 0.2, 1) 1.4s both;
 }
 
 .site-intro.gone {

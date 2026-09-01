@@ -9,7 +9,7 @@ document.addEventListener('DOMContentLoaded', () => {
         if (e.target === siteIntro) siteIntro.remove();
       });
       // Safety net in case the animationend event doesn't fire for any reason.
-      window.setTimeout(() => siteIntro.remove(), 2600);
+      window.setTimeout(() => siteIntro.remove(), 2300);
     }
   }
 

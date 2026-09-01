@@ -19,8 +19,23 @@
       rel="stylesheet"
     />
     <link rel="stylesheet" href="styles.css" />
+    <script>
+      if (sessionStorage.getItem("empress_intro_shown")) {
+        document.documentElement.classList.add("no-intro");
+      }
+    </script>
   </head>
   <body>
+    <div class="site-intro" id="site-intro" aria-hidden="true">
+      <div class="site-intro-sparkle site-intro-sparkle-1">✦</div>
+      <div class="site-intro-sparkle site-intro-sparkle-2">✦</div>
+      <div class="site-intro-sparkle site-intro-sparkle-3">✦</div>
+      <div class="site-intro-mark">
+        <span class="site-intro-word">Empress Divas</span>
+        <span class="site-intro-rule"></span>
+        <span class="site-intro-tag">Collections</span>
+      </div>
+    </div>
     <header class="site-header gadgets-header">
       <div class="container navbar">
         <a href="index.html" class="brand">Empress Divas Collections</a>
