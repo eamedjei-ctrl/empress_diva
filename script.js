@@ -44,7 +44,7 @@
     } else {
       try { sessionStorage.setItem('empress_intro_shown', '1'); } catch (e) { /* ignore */ }
       siteIntro.addEventListener('animationend', (e) => { if (e.target === siteIntro) siteIntro.remove(); });
-      window.setTimeout(() => siteIntro.remove(), 2300);
+      window.setTimeout(() => siteIntro.remove(), 4400); // matches the 4.1s intro in styles.css
     }
   }
 
