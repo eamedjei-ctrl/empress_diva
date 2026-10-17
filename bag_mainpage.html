@@ -3,26 +3,17 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Bags | Empress Divas</title>
-    <meta
-      name="description"
-      content="Shop chic designer-inspired bags and premium accessories for every day and every occasion."
-    />
+    <title>Bags | Empress Divas Collections</title>
+    <meta name="description" content="Browse our collection of elevated bags designed to complete your wardrobe with elegance and practicality." />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Playfair+Display:wght@600;700;800&display=swap"
-      rel="stylesheet"
-    />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght@400;GRAD@0;opsz@24"
-      rel="stylesheet"
-    />
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,600;0,700;1,600;1,700&display=swap" rel="stylesheet" />
     <link rel="stylesheet" href="styles.css" />
     <script>
-      if (sessionStorage.getItem("empress_intro_shown")) {
-        document.documentElement.classList.add("no-intro");
-      }
+      // Skip the splash before first paint if it already played this session.
+      try {
+        if (sessionStorage.getItem('empress_intro_shown')) document.documentElement.classList.add('no-intro');
+      } catch (e) {}
     </script>
   </head>
   <body>
@@ -36,254 +27,178 @@
         <span class="site-intro-tag">Collections</span>
       </div>
     </div>
-    <header class="site-header gadgets-header">
-      <div class="container navbar">
-        <a href="index.html" class="brand">Empress Divas Collections</a>
 
-        <button class="icon-btn mobile-toggle" aria-label="Open menu">
-          <span class="material-symbols-outlined">menu</span>
+    <a class="skip-link" href="#main">Skip to content</a>
+
+    <div class="announcement">
+      <p>Order easily on WhatsApp &middot; Pickup or delivery<span class="announcement-extra"> &middot; <a href="tel:0245816733">Call 0245 816 733</a></span></p>
+    </div>
+
+    <header class="site-header">
+      <div class="container header-inner">
+        <button class="icon-btn menu-toggle" type="button" aria-label="Open menu" aria-controls="mobile-nav" aria-expanded="false" data-drawer-open="mobile-nav">
+          <span class="hamburger" aria-hidden="true"><span></span><span></span><span></span></span>
         </button>
 
-        <nav class="nav-wrap" aria-label="Main navigation">
-          <ul class="nav-menu">
-            <li><a href="index.html">Home</a></li>
-            <li><a href="gadgets.html">Gadgets</a></li>
-            <li><a href="products.html">Apparels</a></li>
-          <li><a href="dresses.html">Dresses</a></li>
-            <li><a href="bag_mainpage.html" class="active">Bags</a></li>
-            <li><a href="footwearmp.html">Footwears</a></li>
+        <a href="index.html" class="logo" aria-label="Empress Divas Collections, home">
+          <span class="logo-word">Empress Divas</span>
+          <span class="logo-sub">Collections</span>
+        </a>
+
+        <nav class="main-nav" aria-label="Main">
+          <ul>
+            <li><a href="shop.html">Shop All</a></li>
+            <li><a href="dresses.html">Dresses</a></li>
+            <li><a href="products.html">Apparel</a></li>
+            <li><a href="bag_mainpage.html" aria-current="page">Bags</a></li>
+            <li><a href="footwearmp.html">Footwear</a></li>
             <li><a href="wigsmain.html">Wigs</a></li>
-            <li><a href="contact.html">Contact Us</a></li>
+            <li><a href="gadgets.html">Gadgets</a></li>
+            <li><a href="contact.html">Contact</a></li>
           </ul>
         </nav>
 
-        <div class="nav-actions">
-          <a href="cart.html" class="icon-btn cart-link" aria-label="Open cart">
-            <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-              <path d="M7 4H5L3 8v2h2l3.6 7.59L7.25 20.03A1 1 0 0 0 8 21h10v-2H9.58a.25.25 0 0 1-.22-.13L10.1 16h6.45a1 1 0 0 0 .92-.62l1.58-4.47A1 1 0 0 0 19.98 8H6.21" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
-            </svg>
-            <span class="cart-count" aria-hidden="true">0</span>
+        <div class="header-actions">
+          <button class="icon-btn" type="button" aria-label="Search" aria-controls="search-panel" aria-expanded="false" data-search-toggle>
+            <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+          </button>
+          <a href="cart.html" class="icon-btn cart-btn" aria-label="Cart" data-cart-open>
+            <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5.5 8h13l-1 12.5h-11L5.5 8Z"/><path d="M9 8V6.5a3 3 0 0 1 6 0V8"/></svg>
+            <span class="cart-count" data-cart-count hidden>0</span>
           </a>
         </div>
       </div>
+
+      <div class="search-panel" id="search-panel" hidden>
+        <form class="container search-form" action="shop.html" role="search">
+          <label class="visually-hidden" for="site-search">Search products</label>
+          <input id="site-search" type="search" name="q" placeholder="Search dresses, bags, wigs…" autocomplete="off" />
+          <button class="btn btn-primary" type="submit">Search</button>
+        </form>
+      </div>
     </header>
 
-    <main class="gadgets-page">
-      <section class="gadgets-hero">
-        <div class="container gadgets-page-header">
-          <div class="breadcrumb">Home <span>&nbsp;&gt;&nbsp;</span> <span class="crumb-current">Bags</span></div>
+    <div class="drawer drawer-left" id="mobile-nav" aria-label="Menu">
+      <div class="drawer-head">
+        <span class="drawer-title">Menu</span>
+        <button class="icon-btn" type="button" aria-label="Close menu" data-drawer-close><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"/></svg></button>
+      </div>
+      <nav class="drawer-body mobile-nav" aria-label="Mobile">
+        <ul>
+          <li><a href="shop.html">Shop All</a></li>
+          <li><a href="dresses.html">Dresses</a></li>
+          <li><a href="products.html">Apparel</a></li>
+          <li><a href="bag_mainpage.html" aria-current="page">Bags</a></li>
+          <li><a href="footwearmp.html">Footwear</a></li>
+          <li><a href="wigsmain.html">Wigs</a></li>
+          <li><a href="gadgets.html">Gadgets</a></li>
+          <li><a href="contact.html">Contact</a></li>
+        </ul>
+      </nav>
+      <div class="drawer-foot mobile-nav-foot">
+        <a href="https://wa.me/233245816733" target="_blank" rel="noopener"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 11.5a8 8 0 0 1-11.7 7.1L4 20l1.3-4.1A8 8 0 1 1 20 11.5Z"/><path d="M9 10h6M9 13.5h4"/></svg> Chat on WhatsApp</a>
+        <a href="tel:0245816733"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 4h3.5l2 5-2.4 1.6a11 11 0 0 0 5.3 5.3L15 13.5l5 2V19a2 2 0 0 1-2.2 2A16.5 16.5 0 0 1 3 6.2 2 2 0 0 1 5 4Z"/></svg> 0245 816 733</a>
+      </div>
+    </div>
+
+    <div class="scrim" data-scrim></div>
+
+    <main id="main" data-listing="" data-category="bags">
+      <section class="page-hero">
+        <div class="container">
+          <nav class="breadcrumb" aria-label="Breadcrumb"><a href="index.html">Home</a><span aria-hidden="true">/</span><a href="shop.html">Shop</a><span aria-hidden="true">/</span><span aria-current="page">Bags</span></nav>
           <h1>Bags</h1>
           <p>Browse our collection of elevated bags designed to complete your wardrobe with elegance and practicality.</p>
         </div>
       </section>
 
-      <section class="gadgets-filter-section">
-        <div class="container gadgets-filters">
-          <div class="search-box">
-            <span class="material-symbols-outlined">search</span>
-            <input type="text" value="Search bags..." aria-label="Search bags" />
+      <section class="container listing">
+        <aside class="filters drawer drawer-left" id="filters" aria-label="Filters">
+          <div class="drawer-head filters-head">
+            <span class="drawer-title">Filters</span>
+            <button class="icon-btn" type="button" aria-label="Close filters" data-drawer-close><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"/></svg></button>
           </div>
-
-          <div class="filter-selects">
-            <label class="select-box">
-              <span>Brand</span>
-              <select aria-label="Filter by brand">
-                <option>All</option>
-                <option>Classic</option>
-                <option>Luxury</option>
-                <option>Everyday</option>
-              </select>
-            </label>
-
-            <label class="select-box">
-              <span>Price Range</span>
-              <select aria-label="Filter by price range">
-                <option>All</option>
-                <option>Under GHC 500</option>
-                <option>GHC 500 - 1000</option>
-                <option>Above GHC 1000</option>
-              </select>
-            </label>
-
-            <label class="select-box">
-              <span>Availability</span>
-              <select aria-label="Filter by availability">
-                <option>All</option>
-                <option>In Stock</option>
-                <option>Pre-order</option>
-              </select>
-            </label>
+          <div class="drawer-body" data-filters></div>
+          <div class="drawer-foot filters-foot">
+            <button class="btn btn-primary btn-block" type="button" data-drawer-close data-results-btn>Show results</button>
           </div>
-        </div>
-      </section>
+        </aside>
 
-      <section class="gadgets-list">
-        <div class="container gadget-grid">
-          <article class="gadget-card" data-product-id="b1">
-            <span class="tag tag-new">NEW IN</span>
-            <div class="gadget-visual">
-              <img src="Images/bags/mocha-kangaroo-satchel-bag.jpeg" alt="Mocha kangaroo-logo leather satchel bag" loading="lazy" />
-            <button class="cart-icon-btn add-cart-btn" data-id="b1" data-name="Mocha Kangaroo Satchel" data-price="480" aria-label="Add to cart" title="Add to cart">
-              <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-                  <path d="M7 4H5L3 8v2h2l3.6 7.59L7.25 20.03A1 1 0 0 0 8 21h10v-2H9.58a.25.25 0 0 1-.22-.13L10.1 16h6.45a1 1 0 0 0 .92-.62l1.58-4.47A1 1 0 0 0 19.98 8H6.21" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
-                  <circle cx="9" cy="20" r="1.4" fill="currentColor"/>
-                  <circle cx="18" cy="20" r="1.4" fill="currentColor"/>
-                </svg>
-            </button>
+        <div class="listing-main">
+          <div class="toolbar">
+            <p class="result-count" data-result-count aria-live="polite"></p>
+            <div class="toolbar-actions">
+              <button class="btn btn-outline btn-sm filters-toggle" type="button" aria-controls="filters" aria-expanded="false" data-drawer-open="filters"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 6h16M7 12h10M10 18h4"/></svg> Filters</button>
+              <label class="sort">
+                <span class="visually-hidden">Sort products</span>
+                <select data-sort>
+                  <option value="featured">Sort: Featured</option>
+                  <option value="price-asc">Price: Low to high</option>
+                  <option value="price-desc">Price: High to low</option>
+                  <option value="name">Name: A – Z</option>
+                </select>
+              </label>
             </div>
-            <div class="gadget-info">
-              <h3>Mocha Kangaroo Satchel</h3>
-              <p class="gadget-desc">A structured leather satchel with a top handle and detachable strap, finished in a rich mocha tone.</p>
-              <div class="price-row">
-                <div class="price-block">
-                  <strong>GH₵ 480</strong>
-                  <span class="stock in-stock">In Stock</span>
-                </div>
-              </div>
-              <button class="whatsapp-btn subtle">Order on WhatsApp</button>
-            </div>
-          </article>
-
-          <article class="gadget-card" data-product-id="b2">
-            <div class="gadget-visual">
-              <img src="Images/bags/black-kangaroo-satchel-bag.jpeg" alt="Black kangaroo-logo leather satchel bag" loading="lazy" />
-            <button class="cart-icon-btn add-cart-btn" data-id="b2" data-name="Black Kangaroo Satchel" data-price="480" aria-label="Add to cart" title="Add to cart">
-              <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-                  <path d="M7 4H5L3 8v2h2l3.6 7.59L7.25 20.03A1 1 0 0 0 8 21h10v-2H9.58a.25.25 0 0 1-.22-.13L10.1 16h6.45a1 1 0 0 0 .92-.62l1.58-4.47A1 1 0 0 0 19.98 8H6.21" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
-                  <circle cx="9" cy="20" r="1.4" fill="currentColor"/>
-                  <circle cx="18" cy="20" r="1.4" fill="currentColor"/>
-                </svg>
-            </button>
-            </div>
-            <div class="gadget-info">
-              <h3>Black Kangaroo Satchel</h3>
-              <p class="gadget-desc">A structured leather satchel with a top handle and detachable strap, finished in classic black.</p>
-              <div class="price-row">
-                <div class="price-block">
-                  <strong>GH₵ 480</strong>
-                  <span class="stock in-stock">In Stock</span>
-                </div>
-              </div>
-              <button class="whatsapp-btn subtle">Order on WhatsApp</button>
-            </div>
-          </article>
-
-          <article class="gadget-card" data-product-id="b3">
-            <div class="gadget-visual">
-              <img src="Images/bags/brown-kangaroo-crossbody-bag.jpeg" alt="Brown kangaroo-logo leather crossbody bag" loading="lazy" />
-            <button class="cart-icon-btn add-cart-btn" data-id="b3" data-name="Brown Kangaroo Crossbody" data-price="390" aria-label="Add to cart" title="Add to cart">
-              <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-                  <path d="M7 4H5L3 8v2h2l3.6 7.59L7.25 20.03A1 1 0 0 0 8 21h10v-2H9.58a.25.25 0 0 1-.22-.13L10.1 16h6.45a1 1 0 0 0 .92-.62l1.58-4.47A1 1 0 0 0 19.98 8H6.21" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
-                  <circle cx="9" cy="20" r="1.4" fill="currentColor"/>
-                  <circle cx="18" cy="20" r="1.4" fill="currentColor"/>
-                </svg>
-            </button>
-            </div>
-            <div class="gadget-info">
-              <h3>Brown Kangaroo Crossbody</h3>
-              <p class="gadget-desc">A compact leather crossbody with an adjustable strap and buckle clasp, finished in deep brown.</p>
-              <div class="price-row">
-                <div class="price-block">
-                  <strong>GH₵ 390</strong>
-                  <span class="stock in-stock">In Stock</span>
-                </div>
-              </div>
-              <button class="whatsapp-btn subtle">Order on WhatsApp</button>
-            </div>
-          </article>
-
-          <article class="gadget-card" data-product-id="b4">
-            <span class="tag tag-sale">SALE</span>
-            <div class="gadget-visual">
-              <img src="Images/bags/camel-monogram-crossbody-bag.jpeg" alt="Camel monogram crossbody bag with buckle clasp" loading="lazy" />
-            <button class="cart-icon-btn add-cart-btn" data-id="b4" data-name="Camel Monogram Crossbody" data-price="560" aria-label="Add to cart" title="Add to cart">
-              <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-                  <path d="M7 4H5L3 8v2h2l3.6 7.59L7.25 20.03A1 1 0 0 0 8 21h10v-2H9.58a.25.25 0 0 1-.22-.13L10.1 16h6.45a1 1 0 0 0 .92-.62l1.58-4.47A1 1 0 0 0 19.98 8H6.21" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
-                  <circle cx="9" cy="20" r="1.4" fill="currentColor"/>
-                  <circle cx="18" cy="20" r="1.4" fill="currentColor"/>
-                </svg>
-            </button>
-            </div>
-            <div class="gadget-info">
-              <h3>Camel Monogram Crossbody</h3>
-              <p class="gadget-desc">A monogram-canvas crossbody with a leather flap, tactical buckle clasp, and adjustable strap.</p>
-              <div class="price-row">
-                <div class="price-block">
-                  <strong>GH₵ 560</strong>
-                  <span class="stock in-stock">In Stock</span>
-                </div>
-              </div>
-              <button class="whatsapp-btn subtle">Order on WhatsApp</button>
-            </div>
-          </article>
-
-          <article class="gadget-card" data-product-id="b5">
-            <span class="tag tag-sale">SALE</span>
-            <div class="gadget-visual">
-              <img src="Images/bags/black-monogram-crossbody-bag.jpeg" alt="Black monogram crossbody bag with buckle clasp" loading="lazy" />
-            <button class="cart-icon-btn add-cart-btn" data-id="b5" data-name="Black Monogram Crossbody" data-price="560" aria-label="Add to cart" title="Add to cart">
-              <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-                  <path d="M7 4H5L3 8v2h2l3.6 7.59L7.25 20.03A1 1 0 0 0 8 21h10v-2H9.58a.25.25 0 0 1-.22-.13L10.1 16h6.45a1 1 0 0 0 .92-.62l1.58-4.47A1 1 0 0 0 19.98 8H6.21" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
-                  <circle cx="9" cy="20" r="1.4" fill="currentColor"/>
-                  <circle cx="18" cy="20" r="1.4" fill="currentColor"/>
-                </svg>
-            </button>
-            </div>
-            <div class="gadget-info">
-              <h3>Black Monogram Crossbody</h3>
-              <p class="gadget-desc">A monogram-canvas crossbody with a leather flap, tactical buckle clasp, and adjustable strap.</p>
-              <div class="price-row">
-                <div class="price-block">
-                  <strong>GH₵ 560</strong>
-                  <span class="stock in-stock">In Stock</span>
-                </div>
-              </div>
-              <button class="whatsapp-btn subtle">Order on WhatsApp</button>
-            </div>
-          </article>
-        </div>
-
-        <div class="container load-more-wrap">
-          <button class="load-more-btn">Load More Bags <span class="material-symbols-outlined">expand_more</span></button>
+          </div>
+          <div class="active-filters" data-active-filters></div>
+          <div class="product-grid product-grid-listing" data-listing-grid></div>
         </div>
       </section>
     </main>
 
-    <footer class="site-footer gadgets-footer">
+    <footer class="site-footer">
       <div class="container footer-grid">
-        <div class="footer-brand-block">
-          <div class="footer-brand">Empress Divas<br />Collections</div>
-          <p>Elevating everyday elegance for the modern woman.</p>
+        <div class="footer-brand">
+          <a href="index.html" class="logo logo-footer">
+            <span class="logo-word">Empress Divas</span>
+            <span class="logo-sub">Collections</span>
+          </a>
+          <p>Luxury fashion, premium accessories, and stylish essentials for the modern woman.</p>
+          <div class="footer-social">
+            <a href="https://wa.me/233245816733" target="_blank" rel="noopener">WhatsApp</a>
+            <a href="#">TikTok</a>
+          </div>
         </div>
 
         <div>
-          <h4>Company</h4>
+          <h2 class="footer-heading">Shop</h2>
           <ul class="footer-list">
-            <li><a href="index.html">About Us</a></li>
-            <li><a href="products.html">Quick Links</a></li>
-          </ul>
-        </div>
-
-        <div>
-          <h4>Explore</h4>
-          <ul class="footer-list">
-            <li><a href="products.html">Categories</a></li>
+            <li><a href="shop.html">Shop All</a></li>
+            <li><a href="dresses.html">Dresses</a></li>
+            <li><a href="products.html">Apparel</a></li>
             <li><a href="bag_mainpage.html">Bags</a></li>
+            <li><a href="footwearmp.html">Footwear</a></li>
+            <li><a href="wigsmain.html">Wigs</a></li>
+            <li><a href="gadgets.html">Gadgets</a></li>
           </ul>
         </div>
 
         <div>
-          <h4>Connect</h4>
+          <h2 class="footer-heading">Help</h2>
           <ul class="footer-list">
-            <li><a href="tel:0245816733">Contact: 0245816733</a></li>
-            <li><a href="#">TikTok</a></li>
+            <li><a href="contact.html">Contact us</a></li>
+            <li><a href="contact.html#how-to-order">How to order</a></li>
+            <li><a href="cart.html">Your cart</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <h2 class="footer-heading">Get in touch</h2>
+          <ul class="footer-list">
+            <li><a href="tel:0245816733">0245 816 733</a></li>
+            <li><a href="https://wa.me/233245816733" target="_blank" rel="noopener">Chat on WhatsApp</a></li>
+            <li>Mon – Sat, 9am – 6pm</li>
           </ul>
         </div>
       </div>
 
-      <div class="container copyright">© 2024 Empress Divas Collections. All rights reserved.</div>
+      <div class="container footer-bottom">
+        <p>&copy; <span data-year>2026</span> Empress Divas Collections. All rights reserved.</p>
+        <p>All prices in Ghana cedis (GH₵).</p>
+      </div>
     </footer>
 
+    <script src="products-data.js"></script>
     <script src="script.js"></script>
   </body>
 </html>
