@@ -2,3 +2,12 @@
 [build]
   publish = "."
   command = ""
+
+# Serve the HTML exactly as written. Netlify's post-processing (Pretty URLs)
+# rewrote attributes like style="url('Images/…')" into a broken form, so the
+# photos never loaded.
+[build.processing]
+  skip_processing = true
+
+[build.processing.html]
+  pretty_urls = false
