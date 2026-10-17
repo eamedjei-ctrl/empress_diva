@@ -618,9 +618,9 @@ p { margin: 0 0 1rem; }
 .product-grid {
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
-  gap: 2rem 1.25rem;
+  gap: 1.75rem 1rem;
 }
-.product-grid-listing { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+.product-grid-listing { grid-template-columns: repeat(4, minmax(0, 1fr)); }
 
 .product-card {
   position: relative;
@@ -628,13 +628,17 @@ p { margin: 0 0 1rem; }
   flex-direction: column;
   min-width: 0;
 }
+.product-media-wrap {
+  position: relative;
+  transition: transform 0.3s var(--ease);
+}
 .product-media {
   display: block;
   aspect-ratio: 1 / 1;
   overflow: hidden;
   border-radius: var(--radius-lg);
   background: var(--surface-alt);
-  transition: box-shadow 0.3s ease, transform 0.3s var(--ease);
+  transition: box-shadow 0.3s ease;
 }
 .product-media img {
   width: 100%;
@@ -642,23 +646,49 @@ p { margin: 0 0 1rem; }
   object-fit: cover;
   transition: transform 0.5s var(--ease);
 }
-.product-card:hover .product-media { box-shadow: var(--shadow-hover); transform: translateY(-4px); }
+.product-card:hover .product-media-wrap { transform: translateY(-3px); }
+.product-card:hover .product-media { box-shadow: var(--shadow-hover); }
 .product-card:hover .product-media img { transform: scale(1.04); }
 
-.product-info { padding: 0.9rem 0.15rem 0.85rem; flex: 1; }
+/* Round quick-add button sitting on the photo */
+.quick-add {
+  position: absolute;
+  right: 0.6rem;
+  bottom: 0.6rem;
+  z-index: 2;
+  display: grid;
+  place-items: center;
+  width: 40px;
+  height: 40px;
+  padding: 0;
+  border: 0;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.94);
+  color: var(--ink);
+  box-shadow: 0 6px 18px rgba(26, 28, 28, 0.14);
+  transition: background 0.2s ease, color 0.2s ease, transform 0.2s ease;
+}
+.quick-add .icon { width: 19px; height: 19px; }
+.quick-add:hover { background: var(--ink); color: #fff; transform: scale(1.06); }
+.quick-add:active { transform: scale(0.94); }
+.quick-add.is-added { background: var(--success); color: #fff; }
+
+.product-info { padding: 0.7rem 0.1rem 0; }
 .product-cat {
   display: inline-block;
-  margin: 0 0 0.3rem;
-  font-size: 0.66rem;
+  margin: 0 0 0.2rem;
+  font-size: 0.6rem;
   font-weight: 600;
   letter-spacing: 0.14em;
   text-transform: uppercase;
   color: var(--muted);
 }
+/* On a single-category page the label just repeats the page title. */
+main[data-category]:not([data-category="all"]) .product-cat { display: none; }
 .product-name {
-  margin: 0 0 0.35rem;
+  margin: 0 0 0.2rem;
   font-family: var(--font-body);
-  font-size: 0.93rem;
+  font-size: 0.86rem;
   font-weight: 600;
   line-height: 1.35;
   letter-spacing: 0;
@@ -668,7 +698,7 @@ p { margin: 0 0 1rem; }
   overflow: hidden;
 }
 .product-name a:hover { color: var(--pink); }
-.product-price { margin: 0; font-weight: 600; color: var(--pink); }
+.product-price { margin: 0; font-size: 0.88rem; font-weight: 600; color: var(--pink); }
 
 /* ---------- Promo ---------- */
 .promo {
@@ -1310,7 +1340,7 @@ a.contact-card:hover { transform: translateY(-2px); background: var(--pink-wash)
 @media (max-width: 1180px) {
   .product-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
   .category-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1.5rem 1rem; }
-  .product-grid-listing { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .product-grid-listing { grid-template-columns: repeat(3, minmax(0, 1fr)); }
 }
 
 @media (max-width: 1024px) {
@@ -1348,10 +1378,13 @@ a.contact-card:hover { transform: translateY(-2px); background: var(--pink-wash)
 
 @media (max-width: 640px) {
   .product-grid,
-  .product-grid-listing { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1.75rem 0.85rem; }
+  .product-grid-listing { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1.5rem 0.75rem; }
   .category-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-  .product-name { font-size: 0.86rem; }
-  .product-info { padding-top: 0.7rem; }
+  .product-name { font-size: 0.82rem; }
+  .product-info { padding-top: 0.6rem; }
+  .quick-add { width: 36px; height: 36px; right: 0.45rem; bottom: 0.45rem; }
+  .quick-add .icon { width: 17px; height: 17px; }
+  .product-card .badge { top: 0.5rem; left: 0.5rem; font-size: 0.55rem; padding: 0.25rem 0.55rem; }
 
   .section-head { margin-bottom: 1.5rem; }
   .hero-actions .btn { flex: 1 1 100%; }

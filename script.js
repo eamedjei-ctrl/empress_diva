@@ -19,6 +19,7 @@
   const ICONS = {
     close: svg('<path d="M6 6l12 12M18 6 6 18"/>'),
     bag: svg('<path d="M5.5 8h13l-1 12.5h-11L5.5 8Z"/><path d="M9 8V6.5a3 3 0 0 1 6 0V8"/>'),
+    bagPlus: svg('<path d="M5.5 8h13l-1 12.5h-11L5.5 8Z"/><path d="M9 8V6.5a3 3 0 0 1 6 0V8"/><path d="M12 11.5v5M9.5 14h5"/>'),
     chat: svg('<path d="M20 11.5a8 8 0 0 1-11.7 7.1L4 20l1.3-4.1A8 8 0 1 1 20 11.5Z"/><path d="M9 10h6M9 13.5h4"/>'),
     check: svg('<path d="m5 12.5 4.5 4.5L19 7.5"/>'),
     arrow: svg('<path d="M5 12h14M13 6l6 6-6 6"/>'),
@@ -141,18 +142,21 @@
     const cat = categoryBySlug[p.category];
     const url = productUrl(p);
     const badge = p.badge ? `<span class="badge${/sale/i.test(p.badge) ? ' badge-sale' : ''}">${esc(p.badge)}</span>` : '';
+    // Sized items need a size picked first, so their quick button opens the product page.
     const action = p.sizes && p.sizes.length
-      ? `<a class="btn btn-outline btn-sm btn-block" href="${url}">Choose options</a>`
-      : `<button class="btn btn-outline btn-sm btn-block" type="button" data-add-to-cart="${esc(p.id)}">Add to cart</button>`;
+      ? `<a class="quick-add" href="${url}" aria-label="Choose options for ${esc(p.name)}" title="Choose options">${ICONS.bagPlus}</a>`
+      : `<button class="quick-add" type="button" data-add-to-cart="${esc(p.id)}" aria-label="Add ${esc(p.name)} to cart" title="Add to cart">${ICONS.bagPlus}</button>`;
     return `<article class="product-card">
-      <a class="product-media" href="${url}" tabindex="-1" aria-hidden="true">${productMedia(p)}</a>
-      ${badge}
+      <div class="product-media-wrap">
+        <a class="product-media" href="${url}" tabindex="-1" aria-hidden="true">${productMedia(p)}</a>
+        ${badge}
+        ${action}
+      </div>
       <div class="product-info">
         <p class="product-cat">${esc(cat ? cat.name : '')}</p>
         <h3 class="product-name"><a href="${url}">${esc(p.name)}</a></h3>
         <p class="product-price">${money(p.price)}</p>
       </div>
-      ${action}
     </article>`;
   }
 
@@ -325,7 +329,7 @@
 
   function flashAdded(btn) {
     if (btn.dataset.label === undefined) btn.dataset.label = btn.innerHTML;
-    btn.innerHTML = `${ICONS.check} Added`;
+    btn.innerHTML = btn.classList.contains('quick-add') ? ICONS.check : `${ICONS.check} Added`;
     btn.classList.add('is-added');
     window.clearTimeout(btn._flash);
     btn._flash = window.setTimeout(() => {
