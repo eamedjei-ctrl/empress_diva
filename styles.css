@@ -1377,6 +1377,8 @@ a.contact-card:hover { transform: translateY(-2px); background: var(--pink-wash)
 }
 
 @media (max-width: 640px) {
+  .announcement { display: none; }
+
   .product-grid,
   .product-grid-listing { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1.5rem 0.75rem; }
   .category-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
@@ -1413,10 +1415,8 @@ a.contact-card:hover { transform: translateY(-2px); background: var(--pink-wash)
 }
 
 @media (max-width: 420px) {
-  .announcement-extra { display: none; }
   .footer-grid { grid-template-columns: 1fr; }
   .logo-word { font-size: 1.15rem; }
-  .announcement { font-size: 0.66rem; }
 }
 
 /* ---------- Page transition spinner ---------- */
