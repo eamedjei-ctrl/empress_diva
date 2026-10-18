@@ -29,7 +29,7 @@ colors:
   on-tertiary: '#ffffff'
   tertiary-container: '#9f9f9f'
   on-tertiary-container: '#363636'
-  error: '#ba1a1a'
+  error: '#4a0505'
   on-error: '#ffffff'
   error-container: '#ffdad6'
   on-error-container: '#93000a'
