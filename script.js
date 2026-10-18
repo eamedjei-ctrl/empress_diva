@@ -387,6 +387,90 @@
     grid.innerHTML = items.map(productCard).join('');
   });
 
+  // ---------- Homepage hero carousel ----------
+  // The centre product is large and sharp; its neighbours sit small and soft on
+  // either side, and the rest wait behind. Arrows, swipes, or tapping a side
+  // product rotate everyone one place, and the background tint follows.
+  const heroCarousel = document.querySelector('[data-hero-carousel]');
+  if (heroCarousel) {
+    const HERO_MS = 650;
+    const hero = heroCarousel.closest('.hero');
+    const stage = heroCarousel.querySelector('.hero-stage');
+    const slides = [...heroCarousel.querySelectorAll('.hero-slide')];
+    const chip = heroCarousel.querySelector('[data-hero-chip]');
+    const count = slides.length;
+    let active = 0;
+    let animating = false;
+
+    const renderHero = () => {
+      const roles = { [active]: 'center', [(active + count - 1) % count]: 'left', [(active + 1) % count]: 'right' };
+      slides.forEach((slide, i) => {
+        const role = roles[i] || 'back';
+        slide.dataset.role = role;
+        slide.tabIndex = role === 'center' ? 0 : -1;
+        slide.setAttribute('aria-hidden', String(role !== 'center'));
+      });
+      const slide = slides[active];
+      const p = productById[slide.dataset.product];
+      hero.style.setProperty('--hero-bg', slide.dataset.bg);
+      if (p) {
+        chip.href = productUrl(p);
+        chip.innerHTML = `<span>${esc(p.name)}</span><strong>${money(p.price)}</strong>`;
+      }
+    };
+
+    const rotateHero = (step) => {
+      if (animating) return;
+      animating = true;
+      active = (active + step + count) % count;
+      renderHero();
+      window.setTimeout(() => { animating = false; }, HERO_MS);
+    };
+
+    heroCarousel.querySelector('[data-hero-prev]').addEventListener('click', () => rotateHero(-1));
+    heroCarousel.querySelector('[data-hero-next]').addEventListener('click', () => rotateHero(1));
+
+    // Tapping a side product brings it to the centre instead of opening it.
+    slides.forEach((slide) => slide.addEventListener('click', (e) => {
+      if (slide.dataset.role === 'center') return;
+      e.preventDefault();
+      rotateHero(slide.dataset.role === 'left' ? -1 : 1);
+    }));
+
+    let touchX = null;
+    stage.addEventListener('touchstart', (e) => { touchX = e.touches[0].clientX; }, { passive: true });
+    stage.addEventListener('touchend', (e) => {
+      if (touchX === null) return;
+      const dx = e.changedTouches[0].clientX - touchX;
+      touchX = null;
+      if (Math.abs(dx) > 40) rotateHero(dx < 0 ? 1 : -1);
+    });
+
+    renderHero();
+  }
+
+  // ---------- Scroll reveal (homepage) ----------
+  // Each block below the hero rises into place the first time it scrolls into view.
+  if (heroCarousel && 'IntersectionObserver' in window) {
+    const revealTargets = document.querySelectorAll(
+      '.perks-list > li, main .section-head, .category-grid > *, main .product-grid > *, .promo-media, .promo-copy, .steps > li, .help-band-inner'
+    );
+    const revealObserver = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (!entry.isIntersecting) return;
+        entry.target.classList.add('is-visible');
+        revealObserver.unobserve(entry.target);
+      });
+    }, { rootMargin: '0px 0px -10% 0px' });
+    revealTargets.forEach((el) => {
+      // Items in the same row arrive one after another.
+      const index = [...el.parentElement.children].indexOf(el);
+      el.style.setProperty('--reveal-delay', `${(index % 4) * 0.08}s`);
+      el.classList.add('reveal');
+      revealObserver.observe(el);
+    });
+  }
+
   // ---------- Listing pages (shop + categories) ----------
   const listing = document.querySelector('[data-listing]');
   if (listing) initListing(listing);

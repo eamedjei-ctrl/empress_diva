@@ -504,8 +504,12 @@ p { margin: 0 0 1rem; }
 .breadcrumb [aria-current] { color: var(--ink); }
 
 /* ---------- Hero ---------- */
+/* The background tint follows whichever product is in the centre of the carousel. */
 .hero {
-  background: linear-gradient(115deg, var(--pink-wash) 0%, #fbf7f9 55%, var(--surface-alt) 100%);
+  --hero-ease: cubic-bezier(0.4, 0, 0.2, 1);
+  --hero-ms: 650ms;
+  background-color: var(--hero-bg, var(--pink-wash));
+  transition: background-color var(--hero-ms) var(--hero-ease);
   padding: clamp(2.5rem, 6vw, 5rem) 0;
   overflow: hidden;
 }
@@ -534,27 +538,65 @@ p { margin: 0 0 1rem; }
 .hero-copy > :nth-child(4) { animation-delay: 0.24s; }
 
 .hero-media {
-  position: relative;
-  display: grid;
-  grid-template-columns: 1.35fr 1fr;
-  grid-template-rows: 1fr 1fr;
-  gap: 1rem;
-  height: clamp(340px, 42vw, 540px);
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
   animation: fadeUp 0.8s var(--ease) 0.15s both;
 }
-.hero-tile {
+.hero-stage {
+  position: relative;
+  height: clamp(340px, 42vw, 540px);
+}
+
+/* Each product card takes one of four places: centre, left, right, or tucked behind. */
+.hero-slide {
+  position: absolute;
+  aspect-ratio: 3 / 4;
   overflow: hidden;
   border-radius: var(--radius-xl);
   background: var(--surface-alt);
+  box-shadow: 0 24px 50px rgba(26, 28, 28, 0.14);
+  transform: translateX(-50%);
+  transition:
+    filter var(--hero-ms) var(--hero-ease),
+    opacity var(--hero-ms) var(--hero-ease),
+    left var(--hero-ms) var(--hero-ease),
+    bottom var(--hero-ms) var(--hero-ease),
+    height var(--hero-ms) var(--hero-ease);
+  will-change: filter, opacity;
 }
-.hero-tile img { width: 100%; height: 100%; object-fit: cover; }
-.hero-tile-main { grid-row: span 2; }
+.hero-slide img { width: 100%; height: 100%; object-fit: cover; }
+.hero-slide[data-role="center"] { left: 50%; bottom: 0; height: 92%; z-index: 20; }
+.hero-slide[data-role="left"],
+.hero-slide[data-role="right"] {
+  bottom: 10%;
+  height: 46%;
+  z-index: 10;
+  filter: blur(2px);
+  opacity: 0.85;
+  cursor: pointer;
+}
+.hero-slide[data-role="left"] { left: 15%; }
+.hero-slide[data-role="right"] { left: 85%; }
+.hero-slide[data-role="back"] {
+  left: 50%;
+  bottom: 10%;
+  height: 38%;
+  z-index: 5;
+  filter: blur(4px);
+  pointer-events: none;
+}
+
+.hero-controls {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+}
 .hero-chip {
-  position: absolute;
-  left: 1rem;
-  bottom: 1rem;
   display: flex;
   flex-direction: column;
+  min-width: 0;
   padding: 0.65rem 1.1rem;
   border-radius: var(--radius-lg);
   background: rgba(255, 255, 255, 0.95);
@@ -563,6 +605,28 @@ p { margin: 0 0 1rem; }
 }
 .hero-chip span { font-size: 0.72rem; color: var(--muted); }
 .hero-chip strong { font-size: 0.95rem; color: var(--pink); }
+.hero-nav { display: flex; gap: 0.75rem; flex-shrink: 0; }
+.hero-arrow {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 52px;
+  height: 52px;
+  border: 2px solid var(--ink);
+  border-radius: var(--radius-full);
+  background: transparent;
+  color: var(--ink);
+  cursor: pointer;
+  transition: transform 150ms, background-color 150ms;
+}
+.hero-arrow:hover { transform: scale(1.08); background: rgba(255, 255, 255, 0.6); }
+.hero-arrow .icon { width: 22px; height: 22px; }
+
+/* ---------- Scroll reveal (homepage) ---------- */
+/* script.js adds .reveal, so without JavaScript everything simply shows. */
+/* An animation rather than a transition, so cards keep their own hover effects. */
+.reveal:not(.is-visible) { opacity: 0; }
+.reveal.is-visible { animation: fadeUp 0.7s var(--ease) var(--reveal-delay, 0s) backwards; }
 
 /* ---------- Perks ---------- */
 .perks { border-bottom: 1px solid var(--line); }
@@ -1358,7 +1422,7 @@ a.contact-card:hover { transform: translateY(-2px); background: var(--pink-wash)
 
 @media (max-width: 860px) {
   .hero-inner { grid-template-columns: 1fr; }
-  .hero-media { height: clamp(300px, 80vw, 440px); }
+  .hero-stage { height: clamp(320px, 88vw, 460px); }
   .perks-list { grid-template-columns: repeat(2, 1fr); gap: 1.25rem 1rem; }
   .promo { grid-template-columns: 1fr; }
   .steps { grid-template-columns: 1fr; }
@@ -1383,7 +1447,9 @@ a.contact-card:hover { transform: translateY(-2px); background: var(--pink-wash)
 
   .section-head { margin-bottom: 1.5rem; }
   .hero-actions .btn { flex: 1 1 100%; }
-  .hero-chip { left: 0.75rem; bottom: 0.75rem; }
+  .hero-slide[data-role="left"] { left: 17%; }
+  .hero-slide[data-role="right"] { left: 83%; }
+  .hero-arrow { width: 46px; height: 46px; }
 
   .toolbar { flex-wrap: wrap; }
   .toolbar-actions { width: 100%; }

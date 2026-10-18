@@ -149,11 +149,20 @@
               <a href="products.html?type=dresses" class="btn btn-outline btn-lg">Explore dresses</a>
             </div>
           </div>
-          <div class="hero-media" aria-hidden="true">
-            <div class="hero-tile hero-tile-main"><img src="Images/dresses/amber-tiered-ruffle-dress.jpeg" alt="" /></div>
-            <div class="hero-tile hero-tile-top"><img src="Images/bags/mocha-kangaroo-satchel-bag.jpeg" alt="" /></div>
-            <div class="hero-tile hero-tile-bottom"><img src="Images/footwear/wine-floral-velvet-pointed-pumps.jpeg" alt="" /></div>
-            <div class="hero-chip"><span>Tiered Ruffle Dress</span><strong>GH₵ 620</strong></div>
+          <div class="hero-media" data-hero-carousel aria-roledescription="carousel" aria-label="Featured pieces">
+            <div class="hero-stage">
+              <a class="hero-slide" href="item.html?id=d1" data-product="d1" data-bg="#f8e6d5" data-role="center"><img src="Images/dresses/amber-tiered-ruffle-dress.jpeg" alt="Amber tiered ruffle dress" draggable="false" /></a>
+              <a class="hero-slide" href="item.html?id=b18" data-product="b18" data-bg="#fbdfec" data-role="right"><img src="Images/bags/hot-pink-v-tassel-top-handle-bag.jpeg" alt="Hot pink V tassel top-handle bag" draggable="false" /></a>
+              <a class="hero-slide" href="item.html?id=s1" data-product="s1" data-bg="#f2dbe0" data-role="back"><img src="Images/footwear/wine-floral-velvet-pointed-pumps.jpeg" alt="Wine floral velvet pumps" draggable="false" /></a>
+              <a class="hero-slide" href="item.html?id=w4" data-product="w4" data-bg="#efe5dc" data-role="left"><img src="Images/wigs/luxury-body-wave-wig.jpeg" alt="Luxury body wave wig" draggable="false" /></a>
+            </div>
+            <div class="hero-controls">
+              <a class="hero-chip" href="item.html?id=d1" data-hero-chip aria-live="polite"><span>Amber Tiered Ruffle Dress</span><strong>GH₵ 620</strong></a>
+              <div class="hero-nav">
+                <button class="hero-arrow" type="button" aria-label="Previous piece" data-hero-prev><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 12H5M11 6l-6 6 6 6"/></svg></button>
+                <button class="hero-arrow" type="button" aria-label="Next piece" data-hero-next><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button>
+              </div>
+            </div>
           </div>
         </div>
       </section>
