@@ -46,6 +46,12 @@ window.EMPRESS = {
 
   products: [
     // New arrivals — bags (listed first so they lead the shop and New Arrivals)
+    { id: 'b17', category: 'bags', name: 'Black V Tassel Top-Handle Bag', price: 450, badge: 'New In', featured: true,
+      images: ['Images/bags/black-v-tassel-top-handle-bag.jpeg', 'Images/bags/v-tassel-top-handle-bag-colours.jpeg'], alt: 'Black top-handle bag with gold V emblem and tassel',
+      description: 'A structured top-handle bag with a gold-tone V emblem and tassel drop, chevron-quilted front panel, matching tag charm and a wide detachable logo-print shoulder strap, in classic black.' },
+    { id: 'b18', category: 'bags', name: 'Hot Pink V Tassel Top-Handle Bag', price: 450, badge: 'New In', featured: true,
+      images: ['Images/bags/hot-pink-v-tassel-top-handle-bag.jpeg', 'Images/bags/v-tassel-top-handle-bag-colours.jpeg'], alt: 'Hot pink top-handle bag with gold V emblem and tassel',
+      description: 'A structured top-handle bag with a gold-tone V emblem and tassel drop, chevron-quilted front panel, matching tag charm and a wide detachable logo-print shoulder strap, in hot pink.' },
     { id: 'b6', category: 'bags', name: 'Chocolate Patchwork Tote Set', price: 450, badge: 'New In', featured: true,
       images: ['Images/bags/chocolate-patchwork-tote-set.jpeg'], alt: 'Chocolate patchwork tote with matching clutch and card holder',
       description: 'A three-piece set: a structured patchwork tote with a knotted handle accent and detachable shoulder strap, plus a matching envelope clutch and card holder, in rich chocolate.' },
