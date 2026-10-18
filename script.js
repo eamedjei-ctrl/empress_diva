@@ -32,6 +32,25 @@
     set(key, value) { try { localStorage.setItem(key, value); } catch (e) { /* private mode */ } },
   };
 
+  // If a photo ever fails to load, show the branded placeholder instead of a broken-image icon.
+  function replaceBrokenImage(img) {
+    if (img.dataset.failed) return;
+    img.dataset.failed = '1';
+    const placeholder = document.createElement('span');
+    placeholder.className = `img-placeholder ${img.className}`;
+    placeholder.setAttribute('role', 'img');
+    placeholder.setAttribute('aria-label', img.alt);
+    placeholder.textContent = (img.alt || 'Empress').charAt(0).toUpperCase();
+    img.replaceWith(placeholder);
+  }
+  document.addEventListener('error', (e) => {
+    if (e.target instanceof HTMLImageElement) replaceBrokenImage(e.target);
+  }, true);
+  // Photos in the page markup may have failed before this script ran.
+  document.querySelectorAll('img').forEach((img) => {
+    if (img.complete && img.getAttribute('src') && img.naturalWidth === 0) replaceBrokenImage(img);
+  });
+
   function openWhatsApp(text) {
     window.open(whatsappUrl(text), '_blank', 'noopener');
   }
@@ -134,7 +153,7 @@
   function productMedia(p, cls = '') {
     const img = p.images && p.images[0];
     return img
-      ? `<img src="${esc(img)}" alt="${esc(p.alt || p.name)}" loading="lazy" class="${cls}" />`
+      ? `<img src="${esc(img)}" alt="${esc(p.alt || p.name)}" loading="${cls === 'pdp-main-img' ? 'eager' : 'lazy'}" class="${cls}" />`
       : `<span class="img-placeholder ${cls}" role="img" aria-label="${esc(p.alt || p.name)}">${esc(p.name.charAt(0))}</span>`;
   }
 
@@ -153,7 +172,7 @@
         ${action}
       </div>
       <div class="product-info">
-        <p class="product-cat">${esc(cat ? cat.name : '')}</p>
+        <p class="product-cat">${esc(p.type || (cat ? cat.name : ''))}</p>
         <h3 class="product-name"><a href="${url}">${esc(p.name)}</a></h3>
         <p class="product-price">${money(p.price)}</p>
       </div>
@@ -391,11 +410,13 @@
     const state = {
       category: pageCategory === 'all' ? (categoryBySlug[params.get('category')] ? params.get('category') : 'all') : pageCategory,
       q: params.get('q') || '',
+      type: (params.get('type') || 'all').toLowerCase(),
       sizes: new Set(),
       price: 'any',
       sort: 'featured',
     };
 
+    const typeSlug = (t) => String(t).toLowerCase();
     const inCategory = () => PRODUCTS.filter((p) => state.category === 'all' || p.category === state.category);
 
     function renderFilters() {
@@ -403,6 +424,9 @@
       const sizes = [...new Set(scoped.flatMap((p) => p.sizes || []))];
       // Drop size selections that no longer apply after a category change.
       [...state.sizes].forEach((s) => { if (!sizes.includes(s)) state.sizes.delete(s); });
+      // Types (e.g. Dresses, Sets) only exist within some categories.
+      const types = [...new Set(scoped.map((p) => p.type).filter(Boolean))];
+      if (!types.some((t) => typeSlug(t) === state.type)) state.type = 'all';
 
       const categoryGroup = pageCategory === 'all' ? `
         <fieldset class="filter-group">
@@ -411,6 +435,16 @@
             const n = c.slug === 'all' ? PRODUCTS.length : PRODUCTS.filter((p) => p.category === c.slug).length;
             return `<label class="radio-row"><input type="radio" name="category" value="${c.slug}"${state.category === c.slug ? ' checked' : ''} />
               <span>${esc(c.name)}</span><span class="filter-count">${n}</span></label>`;
+          }).join('')}
+        </fieldset>` : '';
+
+      const typeGroup = types.length ? `
+        <fieldset class="filter-group">
+          <legend>Type</legend>
+          ${[{ slug: 'all', name: 'All' }, ...types.map((t) => ({ slug: typeSlug(t), name: t }))].map((t) => {
+            const n = t.slug === 'all' ? scoped.length : scoped.filter((p) => p.type && typeSlug(p.type) === t.slug).length;
+            return `<label class="radio-row"><input type="radio" name="type" value="${esc(t.slug)}"${state.type === t.slug ? ' checked' : ''} />
+              <span>${esc(t.name)}</span><span class="filter-count">${n}</span></label>`;
           }).join('')}
         </fieldset>` : '';
 
@@ -428,6 +462,7 @@
           <input id="filter-q" class="input" type="search" name="q" placeholder="Search products…" value="${esc(state.q)}" autocomplete="off" />
         </div>
         ${categoryGroup}
+        ${typeGroup}
         ${sizeGroup}
         <fieldset class="filter-group">
           <legend>Price</legend>
@@ -440,7 +475,8 @@
       const q = state.q.trim().toLowerCase();
       const range = PRICE_RANGES.find((r) => r.id === state.price);
       let items = inCategory().filter((p) =>
-        (!q || `${p.name} ${p.description} ${p.category}`.toLowerCase().includes(q)) &&
+        (!q || `${p.name} ${p.description} ${p.category} ${p.type || ''}`.toLowerCase().includes(q)) &&
+        (state.type === 'all' || (p.type && typeSlug(p.type) === state.type)) &&
         (!state.sizes.size || (p.sizes || []).some((s) => state.sizes.has(s))) &&
         range.test(p));
       if (state.sort === 'price-asc') items = [...items].sort((a, b) => a.price - b.price);
@@ -463,6 +499,7 @@
 
       const chips = [];
       if (pageCategory === 'all' && state.category !== 'all') chips.push(['category', categoryBySlug[state.category].name]);
+      if (state.type !== 'all') chips.push(['type', inCategory().find((p) => p.type && typeSlug(p.type) === state.type).type]);
       if (state.q) chips.push(['q', `“${state.q}”`]);
       state.sizes.forEach((s) => chips.push([`size:${s}`, `Size ${s}`]));
       if (state.price !== 'any') chips.push(['price', PRICE_RANGES.find((r) => r.id === state.price).label]);
@@ -470,8 +507,9 @@
         `<button class="chip" type="button" data-chip="${esc(k)}" aria-label="Remove filter ${esc(label)}">${esc(label)} ${ICONS.close}</button>`).join('');
       activeEl.hidden = !chips.length;
 
-      // Keep the URL shareable for search + category.
+      // Keep the URL shareable for search, category and type.
       const url = new URL(location.href);
+      state.type !== 'all' ? url.searchParams.set('type', state.type) : url.searchParams.delete('type');
       state.q ? url.searchParams.set('q', state.q) : url.searchParams.delete('q');
       pageCategory === 'all' && state.category !== 'all' ? url.searchParams.set('category', state.category) : url.searchParams.delete('category');
       history.replaceState(null, '', url);
@@ -479,6 +517,7 @@
 
     function clearAll() {
       state.q = '';
+      state.type = 'all';
       state.sizes.clear();
       state.price = 'any';
       if (pageCategory === 'all') state.category = 'all';
@@ -499,6 +538,7 @@
         state.category = t.value;
         renderFilters();
       }
+      if (t.name === 'type') state.type = t.value;
       if (t.name === 'size') t.checked ? state.sizes.add(t.value) : state.sizes.delete(t.value);
       if (t.name === 'price') state.price = t.value;
       renderResults();
@@ -511,6 +551,7 @@
       const k = chip.dataset.chip;
       if (k === 'category') state.category = 'all';
       if (k === 'q') state.q = '';
+      if (k === 'type') state.type = 'all';
       if (k === 'price') state.price = 'any';
       if (k.startsWith('size:')) state.sizes.delete(k.slice(5));
       renderFilters();
@@ -560,6 +601,7 @@
       <nav class="breadcrumb" aria-label="Breadcrumb">
         <a href="index.html">Home</a><span aria-hidden="true">/</span>
         <a href="${esc(cat.page)}">${esc(cat.name)}</a><span aria-hidden="true">/</span>
+        ${p.type ? `<a href="${esc(cat.page)}?type=${encodeURIComponent(p.type.toLowerCase())}">${esc(p.type)}</a><span aria-hidden="true">/</span>` : ''}
         <span aria-current="page">${esc(p.name)}</span>
       </nav>
       <div class="pdp">
@@ -640,7 +682,8 @@
 
     el.querySelectorAll('[data-thumb]').forEach((btn) => {
       btn.addEventListener('click', () => {
-        el.querySelector('.pdp-main-img').src = btn.dataset.thumb;
+        const main = el.querySelector('img.pdp-main-img');
+        if (main) main.src = btn.dataset.thumb;
         el.querySelectorAll('[data-thumb]').forEach((b) => b.classList.toggle('is-active', b === btn));
       });
     });

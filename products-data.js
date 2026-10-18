@@ -2,23 +2,17 @@
 // To add a product, copy one entry, give it a unique id, and set its category
 // to one of the category slugs below. Prices are in Ghana cedis.
 window.EMPRESS = {
-  whatsapp: '233245816733', // country code, no +
+  whatsapp: '233505458432', // 0505458432 with Ghana's country code, no +
   phone: '0245816733',
 
   categories: [
     {
-      slug: 'dresses',
-      name: 'Dresses',
-      page: 'dresses.html',
-      image: 'Images/dresses/amber-tiered-ruffle-dress.jpeg',
-      blurb: 'Flowing, tiered ruffle dresses crafted for evenings that call for a little extra grace.',
-    },
-    {
+      // Dresses live here too — give a product `type: 'Dresses'` and it shows under the Dresses filter.
       slug: 'apparel',
       name: 'Apparel',
       page: 'products.html',
-      image: '',
-      blurb: 'Discover our curated collection of sophisticated, contemporary pieces designed for the modern woman.',
+      image: 'Images/dresses/amber-tiered-ruffle-dress.jpeg',
+      blurb: 'Dresses and contemporary pieces designed for the modern woman — from flowing tiered ruffle gowns to tailored sets.',
     },
     {
       slug: 'bags',
@@ -38,7 +32,7 @@ window.EMPRESS = {
       slug: 'wigs',
       name: 'Wigs',
       page: 'wigsmain.html',
-      image: 'https://images.unsplash.com/photo-1487412720507-e7ab37603c6f?auto=format&fit=crop&w=900&q=80',
+      image: 'Images/wigs/luxury-body-wave-wig.jpeg',
       blurb: 'Discover our exclusive collection of luxury wigs, crafted for elegance and flawless style. From sleek bone straight to voluminous deep waves.',
     },
     {
@@ -86,40 +80,40 @@ window.EMPRESS = {
       images: ['Images/bags/burgundy-swan-charm-tote.jpeg'], alt: 'Burgundy tote with black studded trim and gold swan charm',
       description: 'A structured tote with studded black trim, a gold-tone swan charm, twin top handles and a detachable shoulder strap, in burgundy.' },
 
-    // Dresses
-    { id: 'd1', category: 'dresses', name: 'Amber Tiered Ruffle Dress', price: 620, badge: 'New In', featured: true,
+    // Apparel — dresses
+    { id: 'd1', category: 'apparel', type: 'Dresses', name: 'Amber Tiered Ruffle Dress', price: 620, badge: 'New In', featured: true,
       images: ['Images/dresses/amber-tiered-ruffle-dress.jpeg'], alt: 'Amber tiered ruffle pleated dress',
       sizes: ['S', 'M', 'L', 'XL'],
       description: 'A pleated ribbed-knit gown with cascading ruffle tiers and a tie waist, finished in a warm amber tone.' },
-    { id: 'd2', category: 'dresses', name: 'Teal Tiered Ruffle Dress', price: 620, featured: true,
+    { id: 'd2', category: 'apparel', type: 'Dresses', name: 'Teal Tiered Ruffle Dress', price: 620, featured: true,
       images: ['Images/dresses/teal-tiered-ruffle-dress.jpeg'], alt: 'Teal tiered ruffle pleated dress',
       sizes: ['S', 'M', 'L', 'XL'],
       description: 'A pleated ribbed-knit gown with cascading ruffle tiers and a tie waist, finished in a rich teal tone.' },
-    { id: 'd3', category: 'dresses', name: 'Olive Tiered Ruffle Dress', price: 620,
+    { id: 'd3', category: 'apparel', type: 'Dresses', name: 'Olive Tiered Ruffle Dress', price: 620,
       images: ['Images/dresses/olive-tiered-ruffle-dress.jpeg'], alt: 'Olive tiered ruffle pleated dress',
       sizes: ['S', 'M', 'L', 'XL'],
       description: 'A pleated ribbed-knit gown with cascading ruffle tiers and a tie waist, finished in a soft olive tone.' },
-    { id: 'd4', category: 'dresses', name: 'Noir Tiered Ruffle Dress', price: 620,
+    { id: 'd4', category: 'apparel', type: 'Dresses', name: 'Noir Tiered Ruffle Dress', price: 620,
       images: ['Images/dresses/noir-tiered-ruffle-dress.jpeg'], alt: 'Noir tiered ruffle pleated dress',
       sizes: ['S', 'M', 'L', 'XL'],
       description: 'A pleated ribbed-knit gown with cascading ruffle tiers and a tie waist, finished in classic noir.' },
-    { id: 'd5', category: 'dresses', name: 'Forest Tiered Ruffle Dress', price: 620,
+    { id: 'd5', category: 'apparel', type: 'Dresses', name: 'Forest Tiered Ruffle Dress', price: 620,
       images: ['Images/dresses/forest-tiered-ruffle-dress.jpeg'], alt: 'Forest green tiered ruffle pleated dress',
       sizes: ['S', 'M', 'L', 'XL'],
       description: 'A pleated ribbed-knit gown with cascading ruffle tiers and a tie waist, finished in deep forest green.' },
-    { id: 'd6', category: 'dresses', name: 'Camel Tiered Ruffle Dress', price: 620,
+    { id: 'd6', category: 'apparel', type: 'Dresses', name: 'Camel Tiered Ruffle Dress', price: 620,
       images: ['Images/dresses/camel-tiered-ruffle-dress.jpeg'], alt: 'Camel tiered ruffle pleated dress',
       sizes: ['S', 'M', 'L', 'XL'],
       description: 'A pleated ribbed-knit gown with cascading ruffle tiers and a tie waist, finished in warm camel.' },
 
-    // Apparel (no photos yet — add paths to `images` when you have them)
-    { id: 'a1', category: 'apparel', name: 'Blush Silk Evening Gown', price: 1250, badge: 'New In',
+    // Apparel — more pieces (no photos yet — add paths to `images` when you have them)
+    { id: 'a1', category: 'apparel', type: 'Dresses', name: 'Blush Silk Evening Gown', price: 1250, badge: 'New In',
       images: [], alt: 'Blush silk evening gown', sizes: ['S', 'M', 'L', 'XL'],
       description: 'A silk evening gown in a soft blush tone, made for special occasions.' },
-    { id: 'a2', category: 'apparel', name: 'Ivory Tailored Blazer Set', price: 1800,
+    { id: 'a2', category: 'apparel', type: 'Sets', name: 'Ivory Tailored Blazer Set', price: 1800,
       images: [], alt: 'Ivory tailored blazer set', sizes: ['S', 'M', 'L', 'XL'],
       description: 'A tailored two-piece blazer set in ivory for a polished, put-together look.' },
-    { id: 'a3', category: 'apparel', name: 'Noir Structured Midi', price: 850,
+    { id: 'a3', category: 'apparel', type: 'Dresses', name: 'Noir Structured Midi', price: 850,
       images: [], alt: 'Noir structured midi dress', sizes: ['S', 'M', 'L', 'XL'],
       description: 'A structured midi dress in noir with a clean, timeless silhouette.' },
 
@@ -168,20 +162,20 @@ window.EMPRESS = {
 
     // Wigs
     { id: 'w1', category: 'wigs', name: 'HD Lace Frontal – Sleek Bone Straight', price: 3500, badge: 'Bestseller',
-      images: ['https://images.unsplash.com/photo-1524504388940-b1c1722653e1?auto=format&fit=crop&w=900&q=80'], alt: 'Human hair wig',
+      images: ['Images/wigs/sleek-bone-straight-wig.jpeg'], alt: 'Human hair wig',
       description: 'Soft, smooth, and luminous hair texture that gives a seamless natural look.' },
     { id: 'w2', category: 'wigs', name: 'Deep Wave Virgin Hair', price: 2800, badge: 'New Arrival', featured: true,
-      images: ['https://images.unsplash.com/photo-1529139574466-a303027c1d8b?auto=format&fit=crop&w=900&q=80'], alt: 'Woman wearing deep wave wig',
+      images: ['Images/wigs/deep-wave-wig.jpeg'], alt: 'Woman wearing deep wave wig',
       description: 'Full-bodied waves with soft bounce and rich texture for a glamorous finish.' },
     { id: 'w3', category: 'wigs', name: 'Caramel Balayage Bob', price: 2200, badge: 'New Arrival',
-      images: ['https://images.unsplash.com/photo-1524504388940-b1c1722653e1?auto=format&fit=crop&w=900&q=80'], alt: 'Bob wig',
+      images: ['Images/wigs/sleek-bone-straight-wig.jpeg'], alt: 'Bob wig',
       description: 'A modern, elegant bob cut with soft blended tones for a polished everyday look.' },
     { id: 'w4', category: 'wigs', name: 'Luxury Body Wave', price: 3100, badge: 'Bestseller',
-      images: ['https://images.unsplash.com/photo-1487412720507-e7ab37603c6f?auto=format&fit=crop&w=900&q=80'], alt: 'Luxury body wave wig',
+      images: ['Images/wigs/luxury-body-wave-wig.jpeg'], alt: 'Luxury body wave wig',
       description: 'Soft body waves designed to add volume and a naturally chic silhouette.' },
 
     // Gadgets
-    { id: 'g1', category: 'gadgets', name: 'Menstrual Cramps Relief Heating Belt', price: 4500, badge: 'New In', featured: true,
+    { id: 'g1', category: 'gadgets', name: 'Menstrual Cramps Relief Heating Belt', price: 180, badge: 'New In', featured: true,
       images: ['Images/gadgets/mcrhb.jpeg', 'Images/gadgets/menstrual-intro.jpeg'], alt: 'Menstrual cramps relief heating belt',
       description: 'A wearable heating belt that brings soothing warmth to ease period cramps, so you can stay comfortable at home or on the go.' },
   ],

@@ -11,3 +11,9 @@
 
 [build.processing.html]
   pretty_urls = false
+
+# Dresses now live under Apparel; keep old links and bookmarks working.
+[[redirects]]
+  from = "/dresses.html"
+  to = "/products.html?type=dresses"
+  status = 301
