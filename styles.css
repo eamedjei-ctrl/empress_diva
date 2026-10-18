@@ -205,18 +205,7 @@ p { margin: 0 0 1rem; }
 }
 .icon-btn:hover { background: var(--pink-wash); color: var(--pink); }
 
-/* ---------- Announcement + header ---------- */
-.announcement {
-  background: var(--ink);
-  color: #fff;
-  text-align: center;
-  font-size: 0.72rem;
-  letter-spacing: 0.06em;
-  padding: 0.55rem var(--gutter);
-}
-.announcement p { margin: 0; }
-.announcement a { text-decoration: underline; text-underline-offset: 2px; }
-
+/* ---------- Header ---------- */
 .site-header {
   position: sticky;
   top: 0;
@@ -436,6 +425,12 @@ p { margin: 0 0 1rem; }
   color: var(--ink-soft);
 }
 .mobile-nav-foot .icon { color: var(--pink); }
+.mobile-nav-note {
+  margin: 0 0 0.25rem;
+  font-size: 0.72rem;
+  letter-spacing: 0.06em;
+  color: var(--muted);
+}
 
 /* ---------- Shared section bits ---------- */
 .section { padding: clamp(3.5rem, 7vw, 6rem) 0; }
@@ -1377,8 +1372,6 @@ a.contact-card:hover { transform: translateY(-2px); background: var(--pink-wash)
 }
 
 @media (max-width: 640px) {
-  .announcement { display: none; }
-
   .product-grid,
   .product-grid-listing { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1.5rem 0.75rem; }
   .category-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
